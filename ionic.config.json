@@ -1,0 +1,7 @@
+{
+  "name": "WSDC2017BaliV2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
