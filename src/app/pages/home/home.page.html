@@ -8,5 +8,38 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card color="secondary" style="height: 170px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="9">
+          <ion-card-header>
+            <ion-card-title>Latest Announcement</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content *ngFor="let announcement of announcements; let i = index;">
+            <div *ngIf="1 > i">
+              <h4><b>{{ formatDatetime(announcements[0].localtime) }}</b></h4>
+              <p>{{ announcements[0].message }}</p>
+            </div>
+          </ion-card-content>
+        </ion-col>
+        <ion-col size="3">
+          <img style="width: 90px; height: 110px;" src="assets/icon/announcement.png"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
 
+  <ion-list>
+    <ion-list-header>
+      <ion-icon name="book-outline"></ion-icon>
+      <ion-label class="label_newsletters"><h1><b> Newsletters</b></h1></ion-label>
+    </ion-list-header>
+    <ion-item>
+      
+    </ion-item>
+  </ion-list>
 </ion-content>
