@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'pages/Home',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'venues',
     loadChildren: () => import('./pages/venues/venues.module').then(m => m.VenuesPageModule)
+  },
+  {
+    path: 'venues-map/:var',
+    loadChildren: () => import('./pages/venues-map/venues-map.module').then(m => m.VenuesMapPageModule)
   }
 ];
 
