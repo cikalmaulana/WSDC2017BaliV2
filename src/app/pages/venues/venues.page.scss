@@ -1,0 +1,60 @@
+$colors: ('#ec1c24', '#c49a6c', '#d189bb', '#4d113f');
+
+ion-grid {
+  padding-right: 0px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+
+ion-button {
+  color: black;
+  border: none;
+  border-bottom: 1px solid #d0d0d0;
+  width: 100%;
+  text-align: left;
+  height: 50px;
+}
+
+ion-button:nth-child(1) {
+  border-left: solid unquote(nth($colors, 1)) !important;
+  border-left-width: 3px !important;
+
+  span {
+    color: unquote(nth($colors, 1));
+  }
+}
+
+ion-button:nth-child(2) {
+  border-left: solid unquote(nth($colors, 2)) !important;
+  border-left-width: 3px !important;
+
+  span {
+    color: unquote(nth($colors, 2));
+  }
+}
+
+ion-button:nth-child(3) {
+  border-left: solid unquote(nth($colors, 3)) !important;
+  border-left-width: 3px !important;
+
+  span {
+    color: unquote(nth($colors, 3));
+  }
+}
+
+ion-button:nth-child(4) {
+  border-left: solid unquote(nth($colors, 4)) !important;
+  border-left-width: 3px !important;
+
+  span {
+    color: unquote(nth($colors, 4));
+  }
+}
+
+ion-button span {
+  text-align: left;
+}
+
+ion-list {
+  width: 100%;
+}

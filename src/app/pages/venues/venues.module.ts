@@ -8,13 +8,16 @@ import { VenuesPageRoutingModule } from './venues-routing.module';
 
 import { VenuesPage } from './venues.page';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VenuesPageRoutingModule
+    VenuesPageRoutingModule,
+    HttpClientModule
   ],
   declarations: [VenuesPage]
 })
-export class VenuesPageModule {}
+export class VenuesPageModule { }
