@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Venues</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3>{{venuesPage}}</h3>
+    <ion-list>
+      <ion-item *ngFor="let venue of venuesMaps; let i=index">
+        <h2 *ngIf="check(venue.id)">{{venue.geojson.features[i].properties.Name}}</h2>
+        <!-- <h2 >{{venuesPage}}</h2> -->
+        <!-- <p>{{venue.geojson.features.properties.description}}</p> -->
+      </ion-item>
+    </ion-list>
+</ion-content>
