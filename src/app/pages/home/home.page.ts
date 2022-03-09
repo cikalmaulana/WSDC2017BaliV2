@@ -9,12 +9,14 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage implements OnInit {
   announcements: any;
   announcementsHomeDate: Date;
+  wsdcData: any;
+
   i: number;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('./assets/wsdc_data.json').subscribe((data: any) => {
+    this.http.get('./assets/json/wsdc_data.json').subscribe((data: any) => {
       this.announcements = data;
       this.announcementsHomeDate = data.localtime;
     });

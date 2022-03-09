@@ -12,7 +12,7 @@ export class AnnouncementPage implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('./assets/wsdc_data.json').subscribe((data: any) => {
+    this.http.get('./assets/json/wsdc_data.json').subscribe((data: any) => {
       this.announcements = data;
     });
   }
