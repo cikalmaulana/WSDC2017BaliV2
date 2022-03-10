@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-venues-map',
   templateUrl: './venues-map.page.html',
@@ -11,7 +11,7 @@ export class VenuesMapPage implements OnInit {
   venuesPage: any;
   venuesMaps: any;
   filterVenue: any;
-  constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute) {
+  constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute, private router: Router) {
     // this.actovatedRoute.paramMap.subscribe(
     //   (data) => {
     //     this.venuesPage = data;
@@ -39,4 +39,7 @@ export class VenuesMapPage implements OnInit {
     // this.filterVenue = this.venuesMaps.filter(this.venuesMaps.id == this.venuesPage);
   }
 
+  backToVenue() {
+    this.router.navigate(['venues'])
+  }
 }
