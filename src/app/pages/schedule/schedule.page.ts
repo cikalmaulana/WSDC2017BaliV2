@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ViewChild } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-schedule',
@@ -6,10 +9,43 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
+  @ViewChild('slides') slides: IonSlides;
+  schedule: any;
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
+  hariOn: number;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.http.get('./assets/json/schedule.json').subscribe((data: any) => {
+      this.schedule = data;
+    });
+    this.hariOn = 0;
   }
 
+  getDayName(sqlDate: string) {
+    var date = new Date(sqlDate);
+    var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    var dayOfWeek = date.getDay();
+    return dayNames[dayOfWeek];
+  }
+
+  slideChanged() {
+
+  }
+
+  cekHariOn(hari) {
+    if (this.hariOn == hari) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  updateHariOn(hari) {
+    this.hariOn = hari;
+  }
 }

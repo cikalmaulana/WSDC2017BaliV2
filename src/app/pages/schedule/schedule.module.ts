@@ -8,13 +8,16 @@ import { SchedulePageRoutingModule } from './schedule-routing.module';
 
 import { SchedulePage } from './schedule.page';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SchedulePageRoutingModule
+    SchedulePageRoutingModule,
+    HttpClientModule
   ],
   declarations: [SchedulePage]
 })
-export class SchedulePageModule {}
+export class SchedulePageModule { }
