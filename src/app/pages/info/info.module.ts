@@ -8,13 +8,16 @@ import { InfoPageRoutingModule } from './info-routing.module';
 
 import { InfoPage } from './info.page';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    InfoPageRoutingModule
+    InfoPageRoutingModule,
+    HttpClientModule
   ],
   declarations: [InfoPage]
 })
-export class InfoPageModule {}
+export class InfoPageModule { }
