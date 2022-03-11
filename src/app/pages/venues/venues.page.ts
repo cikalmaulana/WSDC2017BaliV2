@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./venues.page.scss'],
 })
 export class VenuesPage implements OnInit {
-  venues: any;
+  wsdcData: any;
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.http.get('./assets/json/venues.json').subscribe((data: any) => {
-      this.venues = data;
+    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+      this.wsdcData = data.venues;
     });
   }
 
