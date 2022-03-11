@@ -1,32 +1,43 @@
+.schedule_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .schedule_container .schedule_segment ion-segment-button {
   --background-checked: #2bb673;
   --color-checked: white;
   --indicator-color-checked: none;
-  border-radius: 100px;
+  border-radius: 50%;
   width: 64px;
   height: 64px;
   padding: 10px 4px 15px;
   margin: 10px 3px 10px 3px;
+  border: none;
 }
 
 .schedule_segment {
-  border-bottom: 1px solid black;
+  overflow-x: scroll;
+  border-bottom: 1px solid grey;
+  background-color: white;
+  overflow-x: scroll;
+}
+
+.schedule_segment ion-segment {
+  white-space: nowrap;
+  height: 100%;
+}
+
+.schedule_slides ion-slides {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: auto;
 }
 
 // .schedule_container .schedule_segment ion-segment-button .day {
 //   color: gray;
 //   --color-checked: white;
 // }
-
-.schedule_container ion-slides {
-  width: 100%;
-  height: auto;
-
-  .slide-zoom {
-    height: 100%;
-    overflow-y: scroll;
-  }
-}
 
 .schedule_container ion-slides ion-list ion-item {
   display: grid;

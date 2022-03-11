@@ -9,21 +9,27 @@ import { IonSlides } from '@ionic/angular';
   styleUrls: ['./schedule.page.scss'],
 })
 export class SchedulePage implements OnInit {
-  @ViewChild('slides') slides: IonSlides;
+  @ViewChild('slides', { static: false }) slides: IonSlides;
+  // @ViewChild('slides') slides: IonSlides;
   wsdcData: any;
   slideOpts = {
     initialSlide: 0,
     speed: 400
   };
-  hariOn: number;
+  hariOn: any;
+  activeIdx: any;
+  selectedSegmentIdx: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.hariOn = 0;
+    this.selectedSegmentIdx = 0;
+  }
 
   ngOnInit() {
     this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
       this.wsdcData = data.schedules;
     });
-    this.hariOn = 0;
+
   }
 
   getDayName(sqlDate: string) {
@@ -34,7 +40,15 @@ export class SchedulePage implements OnInit {
   }
 
   slideChanged() {
+    // this.hariOn = this.hariOn + 1;
+    console.log("Slides changed!");
+    // let activeIdx = this.slides.getActiveIndex();
+    // this.selectedSegmentIdx = activeIdx;
+  }
 
+  onSegmentChanged(segmentButton) {
+    this.slides.slideTo(segmentButton.detail.value);
+    console.log(segmentButton.detail.value);
   }
 
   cekHariOn(hari) {
