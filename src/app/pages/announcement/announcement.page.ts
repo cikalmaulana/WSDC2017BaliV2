@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./announcement.page.scss'],
 })
 export class AnnouncementPage implements OnInit {
-  announcements: any;
+  wsdcData: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('./assets/json/wsdc_data.json').subscribe((data: any) => {
-      this.announcements = data;
+    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+      this.wsdcData = data.announcements;
     });
   }
 
