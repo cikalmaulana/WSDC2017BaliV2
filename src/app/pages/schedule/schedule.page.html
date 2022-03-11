@@ -11,13 +11,13 @@
   <div class="schedule_container">
     <div class="schedule_segment" slot="fixed">
       <ion-segment scrollable > 
-        <ion-segment-button *ngFor="let day of schedule; let i = index;" >
+        <ion-segment-button *ngFor="let day of wsdcData; let i = index;" >
           <div class="day">{{ getDayName(day.date)}}</div>
           <div class="date">{{ i+1 }}</div>
         </ion-segment-button>
       </ion-segment>
       <ion-slides pager="true" [options]="slideOpts" (ionSlideDidChange)="slideChanged()">
-        <ion-slide *ngFor="let schedules of schedule; let i = index;">
+        <ion-slide *ngFor="let schedules of wsdcData; let i = index;">
           <ion-list>
             <ion-item *ngFor="let agenda of schedules.agenda; let i = index;">
               <div class="agendaDate">

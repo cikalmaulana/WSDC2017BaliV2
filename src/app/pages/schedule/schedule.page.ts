@@ -10,7 +10,7 @@ import { IonSlides } from '@ionic/angular';
 })
 export class SchedulePage implements OnInit {
   @ViewChild('slides') slides: IonSlides;
-  schedule: any;
+  wsdcData: any;
   slideOpts = {
     initialSlide: 0,
     speed: 400
@@ -20,8 +20,8 @@ export class SchedulePage implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('./assets/json/schedule.json').subscribe((data: any) => {
-      this.schedule = data;
+    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+      this.wsdcData = data.schedules;
     });
     this.hariOn = 0;
   }
