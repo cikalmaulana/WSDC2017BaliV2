@@ -38,8 +38,12 @@
       <ion-icon name="book-outline"></ion-icon>
       <ion-label class="label_newsletters"><h1><b> Newsletters</b></h1></ion-label>
     </ion-list-header>
-    <ion-item>
-      
+    <ion-item *ngFor="let news of newsletters; let i = index;">
+      <div class="newsletters" >
+        <img src="http://wsdc.dnartworks.com/uploads/newsletter/{{news.id}}/thumbnail.jpg">
+        <h2 text-wrap>{{news.title}}</h2> <br>
+        <ion-button class="ion-padding-end" full block color="danger" (click)="launch(news.url)">Read More</ion-button>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

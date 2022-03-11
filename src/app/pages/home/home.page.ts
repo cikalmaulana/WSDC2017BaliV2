@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +10,16 @@ import { HttpClient } from '@angular/common/http';
 export class HomePage implements OnInit {
   announcements: any;
   announcementsHomeDate: Date;
-  wsdcData: any;
+  newsletters: any;
 
   i: number;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('./assets/json/wsdc_data.json').subscribe((data: any) => {
-      this.announcements = data;
+    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+      this.announcements = data.announcements;
+      this.newsletters = data.newsletters;
       this.announcementsHomeDate = data.localtime;
     });
   }
@@ -44,5 +46,9 @@ export class HomePage implements OnInit {
 
   getAnnouncementHome() {
     return this.announcementsHomeDate;
+  }
+
+  launch(newsUrl) {
+    Browser.open({ url: newsUrl });
   }
 }
