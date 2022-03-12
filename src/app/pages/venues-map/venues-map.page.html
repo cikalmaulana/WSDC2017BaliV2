@@ -8,19 +8,20 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let venue of venuesMaps; let i=index">
-        <div *ngIf="check(venue.id)">
-          <h5>{{venue.name}}</h5>
-          <div *ngFor="let properties of venue.geojson.features">
-            <h4><b>{{properties.properties.Name}}</b></h4>
-            <p>{{properties.properties.Description}}</p>
-          </div>
+  <div #map id="map"></div>
+  <ion-list>
+    <ion-item *ngFor="let venue of venuesMaps; let i=index">
+      <div *ngIf="check(venue.id)">
+        <h5>{{venue.name}}</h5>
+        <div *ngFor="let properties of venue.geojson.features">
+          <h4><b>{{properties.properties.Name}}</b></h4>
+          <p>{{properties.properties.Description}}</p>
         </div>
-        
-        <!-- <h2 *ngIf="check(venue.id)">{{venue.geojson.features[i].properties.Name}}</h2> -->
-        <!-- <h2 >{{venuesPage}}</h2> -->
-        <!-- <p>{{venue.geojson.features.properties.description}}</p> -->
-      </ion-item>
-    </ion-list>
+      </div>
+      
+      <!-- <h2 *ngIf="check(venue.id)">{{venue.geojson.features[i].properties.Name}}</h2> -->
+      <!-- <h2 >{{venuesPage}}</h2> -->
+      <!-- <p>{{venue.geojson.features.properties.description}}</p> -->
+    </ion-item>
+  </ion-list>
 </ion-content>
