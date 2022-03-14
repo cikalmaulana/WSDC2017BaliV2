@@ -1,3 +1,32 @@
+$colors: ('#ec1c24', '#c49a6c', '#d189bb', '#4d113f');
+
 #map{
     height: 50%;
+}
+
+ion-item h5{
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+}
+
+.venuesDescContainer {
+    border-bottom: 1px solid grey;
+    display: inline-grid;
+    grid-template-columns: auto 70px;
+}
+
+.venuesDescContainer p{
+    margin-top: -8px;
+}
+
+.venuesDist{
+    position: relative;
+}
+
+.venuesDist p{
+    margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

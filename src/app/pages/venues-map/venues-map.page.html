@@ -12,11 +12,19 @@
   <ion-list>
     <ion-item *ngFor="let venue of venuesMaps; let i=index">
       <div *ngIf="check(venue.id)">
-        <h5>{{venue.name}}</h5>
-        <div *ngFor="let properties of venue.geojson.features">
-          <h4><b>{{properties.properties.Name}}</b></h4>
-          <p>{{properties.properties.Description}}</p>
+        <div class="venuesName">
+          <h5>{{venue.name}}</h5>
         </div>
+        <div class="venuesDescContainer" *ngFor="let properties of venue.geojson.features">
+          <div class="venueDesc">
+            <h4><b>{{properties.properties.Name}}</b></h4>
+            <p>{{properties.properties.Description}}</p>
+          </div>
+          <div class="venuesDist" #distance>
+            <p>1.0 KM</p>
+          </div>
+        </div>
+        
       </div>
       
       <!-- <h2 *ngIf="check(venue.id)">{{venue.geojson.features[i].properties.Name}}</h2> -->
