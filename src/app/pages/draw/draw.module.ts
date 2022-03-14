@@ -8,12 +8,15 @@ import { DrawPageRoutingModule } from './draw-routing.module';
 
 import { DrawPage } from './draw.page';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DrawPageRoutingModule
+    DrawPageRoutingModule,
+    HttpClientModule
   ],
   declarations: [DrawPage]
 })
