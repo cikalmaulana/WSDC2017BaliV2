@@ -11,8 +11,9 @@ ion-item h5{
 
 .venuesDescContainer {
     border-bottom: 1px solid grey;
+    width: 100%;
     display: inline-grid;
-    grid-template-columns: auto 70px;
+    grid-template-columns: 270px 70px;
 }
 
 .venuesDescContainer p{
@@ -21,6 +22,7 @@ ion-item h5{
 
 .venuesDist{
     position: relative;
+    margin-left: 10px;
 }
 
 .venuesDist p{

@@ -15,6 +15,7 @@ export class VenuesMapPage implements OnInit {
   venuesMaps: any;
   filterVenue: any;
   map: any;
+  coordinates: any;
 
   @ViewChild('map', {read:ElementRef, static: false}) mapRef: ElementRef;
   constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute, private router: Router) {
@@ -35,17 +36,27 @@ export class VenuesMapPage implements OnInit {
   }
 
   ionViewDidEnter(){
-    this.showMap(); 
+    this.showMap(-8.409518, 115.188919); //first lat long is in bali
   }
 
-  showMap(){
-    const location = new google.maps.LatLng(-17.824858, 31.053028);
+  showMap(lat, lng){ 
+    const location = new google.maps.LatLng(lat,lng);
     const options = {
       center: location,
       zoom: 15,
       disableDefaultUI: true
     }
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat,lng),
+        map: this.map
+    });
+
+    new google.maps.Marker({
+      position: location,
+      title: "Hello World!",
+    });
   }
 
   check(id) {
@@ -61,5 +72,12 @@ export class VenuesMapPage implements OnInit {
 
   backToVenue() {
     this.router.navigate(['venues'])
+  }
+
+  // Method untuk menset latitude dan longitude dari suatu tempat
+  setMapDetail(coordinates){
+    this.coordinates = coordinates;
+    console.log(this.coordinates[0] + ' ' + this.coordinates[1]);
+    this.showMap(this.coordinates[1],this.coordinates[0]);
   }
 }
