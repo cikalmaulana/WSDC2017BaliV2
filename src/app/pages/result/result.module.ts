@@ -8,12 +8,15 @@ import { ResultPageRoutingModule } from './result-routing.module';
 
 import { ResultPage } from './result.page';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ResultPageRoutingModule
+    ResultPageRoutingModule,
+    HttpClientModule
   ],
   declarations: [ResultPage]
 })
