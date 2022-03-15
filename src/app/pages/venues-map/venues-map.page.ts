@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 declare var google: any;
 
@@ -18,7 +19,7 @@ export class VenuesMapPage implements OnInit {
   coordinates: any;
 
   @ViewChild('map', {read:ElementRef, static: false}) mapRef: ElementRef;
-  constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute, private router: Router,private storage: Storage) {
     // this.actovatedRoute.paramMap.subscribe(
     //   (data) => {
     //     this.venuesPage = data;
@@ -26,9 +27,13 @@ export class VenuesMapPage implements OnInit {
     // )
 
     this.venuesPage = this.actovatedRoute.snapshot.paramMap.get('var')
-    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+    //   this.venuesMaps = data.venues;
+    // });
+    this.storage.get('wsdcDataStorage').then((data) => {
+      console.log("Masuk Venues Map");
       this.venuesMaps = data.venues;
-    });
+    })
     this.memfilter();
   }
 

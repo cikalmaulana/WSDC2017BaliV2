@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-schedule',
@@ -20,16 +21,19 @@ export class SchedulePage implements OnInit {
   activeIdx: any;
   selectedSegmentIdx: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private storage: Storage) {
     this.hariOn = 0;
     this.selectedSegmentIdx = 0;
   }
 
   ngOnInit() {
-    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+    //   this.wsdcData = data.schedules;
+    // });
+    this.storage.get('wsdcDataStorage').then((data) => {
+      console.log("Masuk Schedule");
       this.wsdcData = data.schedules;
-    });
-
+    })
   }
 
   getDayName(sqlDate: string) {

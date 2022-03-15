@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-announcement',
@@ -8,13 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnnouncementPage implements OnInit {
   wsdcData: any;
+  wsdcDataAnnouncement: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private storage: Storage) { }
 
   ngOnInit(): void {
-    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
-      this.wsdcData = data.announcements;
-    });
+    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+    //   this.wsdcData = data.announcements;
+    // });
+
+    this.storage.get('wsdcDataStorage').then((data) => {
+      console.log("Masuk");
+      this.wsdcDataAnnouncement = data.announcements;
+    })
   }
 
   doRefresh(event) {

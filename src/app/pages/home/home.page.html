@@ -19,10 +19,10 @@
             <ion-card-title>Latest Announcement</ion-card-title>
           </ion-card-header>
         
-          <ion-card-content *ngFor="let announcement of announcements; let i = index;">
+          <ion-card-content *ngFor="let announcement of wsdcDataAnnouncement; let i = index;">
             <div *ngIf="1 > i">
-              <h4><b>{{ formatDatetime(announcements[0].localtime) }}</b></h4>
-              <p>{{ announcements[0].message }}</p>
+              <h4><b>{{ formatDatetime(announcement.localtime) }}</b></h4>
+              <p>{{ announcement.message }}</p>
             </div>
           </ion-card-content>
         </ion-col>
@@ -38,7 +38,7 @@
       <ion-icon name="book-outline"></ion-icon>
       <ion-label class="label_newsletters"><h1><b> Newsletters</b></h1></ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let news of newsletters; let i = index;">
+    <ion-item *ngFor="let news of wsdcDataNewsletters; let i = index;">
       <div class="newsletters" >
         <img src="http://wsdc.dnartworks.com/uploads/newsletter/{{news.id}}/thumbnail.jpg">
         <h2 text-wrap>{{news.title}}</h2> <br>
