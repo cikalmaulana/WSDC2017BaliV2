@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+// npm install @capacitor/browser
 import { Browser } from '@capacitor/browser';
 
 //npm i @ionic/storage-angular
@@ -29,20 +31,22 @@ export class HomePage implements OnInit {
     // });
 
     this.storage.get('wsdcDataStorage').then((data) => {
-      console.log("Masuk");
+      console.log("ngOnInit Storage");
+      
       if(data == null){
+        console.log("Masuk | Storage = null | Storage dibuat");
         this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
           console.log("Masuk http");
           
           this.wsdcDataAnnouncement = data.announcements;
           this.wsdcDataNewsletters = data.newsletters;
-          this.storage.set('wsdcDataStorage',data.json());
+          this.storage.set('wsdcDataStorage',data);
           console.log(this.wsdcDataAnnouncement);
           console.log(this.wsdcDataNewsletters);
           
         });
       }else{
-        console.log('Masuk else');
+        console.log('Masuk else | Data sudah ada di storage');
         
         this.wsdcDataAnnouncement = data.announcements;
         this.wsdcDataNewsletters = data.newsletters;
@@ -54,7 +58,17 @@ export class HomePage implements OnInit {
 
   doRefresh(event) {
     console.log('Begin async operation');
-
+    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+      console.log("Get latest data from server");
+      
+      this.wsdcDataAnnouncement = data.announcements;
+      this.wsdcDataNewsletters = data.newsletters;
+      console.log("Data updated!");
+      
+      console.log(this.wsdcDataAnnouncement);
+      console.log(this.wsdcDataNewsletters);
+      
+    });
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
