@@ -26,6 +26,8 @@ export class VenuesMapPage implements OnInit {
     //   }
     // )
 
+    // Ambil param yang dikirim dari venues.ts
+    // 'var' ada di app-routing.module.ts
     this.venuesPage = this.actovatedRoute.snapshot.paramMap.get('var')
     // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
     //   this.venuesMaps = data.venues;

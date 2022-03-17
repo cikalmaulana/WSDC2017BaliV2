@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
@@ -11,15 +11,17 @@ import { Storage } from '@ionic/storage';
 })
 export class SchedulePage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
+  @ViewChild('segmentContainer', { static: false }) segmentContainer: ElementRef;
   // @ViewChild('slides') slides: IonSlides;
   wsdcData: any;
   slideOpts = {
     initialSlide: 0,
-    speed: 400
+    speed: 400,
   };
   hariOn: any;
   activeIdx: any;
   selectedSegmentIdx: any;
+  currentIndex:any;
 
   constructor(private http: HttpClient,private storage: Storage) {
     this.hariOn = 0;
@@ -43,9 +45,22 @@ export class SchedulePage implements OnInit {
     return dayNames[dayOfWeek];
   }
 
-  slideChanged() {
+  slideChanged(slideButton) {
     // this.hariOn = this.hariOn + 1;
-    console.log("Slides changed!");
+    // console.log(this.slides.getActiveIndex);
+    this.slides.getActiveIndex().then((index: number) => {
+      this.currentIndex = index;
+      // let segment = this.segmentContainer.nativeElement[index];
+      // segment.scrollIntoView();
+      console.log(index);
+      console.log(this.segmentContainer.nativeElement);
+      
+      
+    });
+
+    // console.log(this.currentIndex);
+    
+    
     // let activeIdx = this.slides.getActiveIndex();
     // this.selectedSegmentIdx = activeIdx;
   }

@@ -18,14 +18,32 @@ export class AnnouncementPage implements OnInit {
     //   this.wsdcData = data.announcements;
     // });
 
+    this.getDataFromStorage();
+  }
+
+  getDataFromStorage(){
+    // From storage
     this.storage.get('wsdcDataStorage').then((data) => {
-      console.log("Masuk");
+      console.log("Masuk Announcement");
       this.wsdcDataAnnouncement = data.announcements;
     })
+
+    // From server : 
+    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+    //   console.log("Get latest data from server");
+      
+    //   this.wsdcDataAnnouncement = data.announcements;
+    //   console.log("Data updated!");
+      
+    //   console.log(this.wsdcDataAnnouncement);
+      
+    // });
   }
 
   doRefresh(event) {
     console.log('Begin async operation');
+
+    this.getDataFromStorage();
 
     setTimeout(() => {
       console.log('Async operation has ended');

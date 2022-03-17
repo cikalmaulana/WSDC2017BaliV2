@@ -13,35 +13,35 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'announcement',
-    loadChildren: () => import('./pages/announcement/announcement.module').then(m => m.AnnouncementPageModule)
+    loadChildren: () => import('./announcement/announcement.module').then(m => m.AnnouncementPageModule)
   },
   {
     path: 'draw',
-    loadChildren: () => import('./pages/draw/draw.module').then(m => m.DrawPageModule)
+    loadChildren: () => import('./draw/draw.module').then(m => m.DrawPageModule)
   },
   {
     path: 'schedule',
-    loadChildren: () => import('./pages/schedule/schedule.module').then(m => m.SchedulePageModule)
+    loadChildren: () => import('./schedule/schedule.module').then(m => m.SchedulePageModule)
   },
   {
     path: 'result',
-    loadChildren: () => import('./pages/result/result.module').then(m => m.ResultPageModule)
+    loadChildren: () => import('./result/result.module').then(m => m.ResultPageModule)
   },
   {
     path: 'info',
-    loadChildren: () => import('./pages/info/info.module').then(m => m.InfoPageModule)
+    loadChildren: () => import('./info/info.module').then(m => m.InfoPageModule)
   },
   {
     path: 'venues',
-    loadChildren: () => import('./pages/venues/venues.module').then(m => m.VenuesPageModule)
+    loadChildren: () => import('./venues/venues.module').then(m => m.VenuesPageModule)
   },
   {
     path: 'venues-map/:var',
-    loadChildren: () => import('./pages/venues-map/venues-map.module').then(m => m.VenuesMapPageModule)
+    loadChildren: () => import('./venues-map/venues-map.module').then(m => m.VenuesMapPageModule)
   }
 ];
 
