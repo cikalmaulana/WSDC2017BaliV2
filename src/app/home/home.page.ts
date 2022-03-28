@@ -7,6 +7,7 @@ import { Browser } from '@capacitor/browser';
 //npm i @ionic/storage-angular
 import { Storage } from '@ionic/storage';
 
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -21,7 +22,7 @@ export class HomePage implements OnInit {
 
   i: number;
 
-  constructor(private http: HttpClient,private storage: Storage) { }
+  constructor(private http: HttpClient,private storage: Storage,private router: Router) { }
 
   ngOnInit(): void {
     // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
@@ -92,5 +93,9 @@ export class HomePage implements OnInit {
 
   launch(newsUrl) {
     Browser.open({ url: newsUrl });
+  }
+
+  itemTapped() {
+    this.router.navigate(['announcement']);
   }
 }

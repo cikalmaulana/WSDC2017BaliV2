@@ -11,7 +11,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card color="secondary" style="height: 170px;">
+  <ion-card color="secondary" style="height: 170px;" (click)="itemTapped()">
     <ion-grid>
       <ion-row>
         <ion-col size="9">
