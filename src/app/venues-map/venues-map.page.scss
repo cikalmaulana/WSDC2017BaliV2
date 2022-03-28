@@ -1,7 +1,8 @@
 $colors: ('#ec1c24', '#c49a6c', '#d189bb', '#4d113f');
 
 #map{
-    height: 50%;
+    height: 400px;
+    // background: #000;
 }
 
 ion-item h5{
@@ -13,7 +14,7 @@ ion-item h5{
     border-bottom: 1px solid grey;
     width: 100%;
     display: inline-grid;
-    grid-template-columns: 270px 70px;
+    grid-template-columns: 80% 20%;
 }
 
 .venuesDescContainer p{
