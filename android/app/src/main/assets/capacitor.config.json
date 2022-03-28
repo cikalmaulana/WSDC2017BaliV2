@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "WSDC 2017 Bali V2",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
