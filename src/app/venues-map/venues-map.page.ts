@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { CapacitorGoogleMaps } from '@capacitor-community/capacitor-googlemaps-native';
+import { Geolocation } from '@capacitor/geolocation';
 
 declare var google: any;
 
@@ -30,6 +31,8 @@ export class VenuesMapPage implements OnInit {
       this.venuesMaps = data.venues;
       this.venuesMapsDetail = this.venuesMaps.filter(d=> d.id==this.venuesPage);
     })
+
+    this.showCurrentPosition();
   }
 
   ngOnInit() {
@@ -55,11 +58,7 @@ export class VenuesMapPage implements OnInit {
         if(this.venuesPage == venue.id){
           for(let venuesMarker of venue.geojson.features){
             const koor = venuesMarker.geometry.coordinates;
-              CapacitorGoogleMaps.addListener("onMapReady", async function() {
-
-                /*
-                  We can do all the magic here when map is ready
-                */
+              CapacitorGoogleMaps.addListener("onMapReady", async function() {  
                   
                     CapacitorGoogleMaps.addMarker({
                       latitude: koor[1],
@@ -116,11 +115,36 @@ export class VenuesMapPage implements OnInit {
       longitude: this.coordinates[0],
       zoom: 15,
       animate: true,
-      animationDuration: 12
+      animationDuration: 12,
+      bearing:0,
+      
     })
 
     CapacitorGoogleMaps.setMapType({
       "type": "normal"
+    })
+  }
+
+  printCurrentPosition = async () => {
+    const coordinates = await Geolocation.getCurrentPosition();
+  
+    alert("Latitude : " + coordinates.coords.latitude);
+    alert("Longitude : " + coordinates.coords.longitude);
+    console.log('Lat : ' + coordinates.coords.latitude + "| Lng : " + coordinates.coords.longitude);
+  };
+
+  showCurrentPosition(){
+    Geolocation.requestPermissions().then(async permission =>{
+      const coordinates = await Geolocation.getCurrentPosition();
+
+      CapacitorGoogleMaps.addMarker({
+        latitude: coordinates.coords.latitude,
+        longitude: coordinates.coords.longitude,
+        title: 'My Location'
+      })
+
+      alert("Latitude : " + coordinates.coords.latitude);
+      alert("Longitude : " + coordinates.coords.longitude);
     })
   }
 }
