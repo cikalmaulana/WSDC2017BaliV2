@@ -43,8 +43,16 @@ export class AnnouncementPage implements OnInit {
   doRefresh(event) {
     console.log('Begin async operation');
 
-    this.getDataFromStorage();
-
+    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+      console.log("Get latest data from server");
+      
+      this.wsdcDataAnnouncement = data.announcements;
+      this.storage.set('wsdcDataStorage',data);
+      console.log("Data updated!");
+      
+      console.log(this.wsdcDataAnnouncement);
+      
+    });
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
