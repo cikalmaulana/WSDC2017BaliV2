@@ -64,6 +64,7 @@ export class HomePage implements OnInit {
       
       this.wsdcDataAnnouncement = data.announcements;
       this.wsdcDataNewsletters = data.newsletters;
+      this.storage.set('wsdcDataStorage',data);
       console.log("Data updated!");
       
       console.log(this.wsdcDataAnnouncement);
