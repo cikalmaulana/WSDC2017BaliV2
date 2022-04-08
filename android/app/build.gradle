@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -22,6 +23,12 @@ android {
         }
     }
 }
+// plugins {
+//     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+// }
+//plugins {
+//  id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+//}
 
 repositories {
     flatDir{
@@ -32,11 +39,13 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    // implementation "com.google.android.libraries.mapsplatform.secrets-gradle-plugin"
     implementation project(':capacitor-android')
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+    
 }
 
 apply from: 'capacitor.build.gradle'
