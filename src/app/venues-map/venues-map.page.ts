@@ -3,10 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { CapacitorGoogleMaps } from '@capacitor-community/capacitor-googlemaps-native';
+import { CapacitorGoogleMaps } from "@capacitor-community/google-maps";
 import { Geolocation } from '@capacitor/geolocation';
-
-declare var google: any;
 
 @Component({
   selector: 'app-venues-map',
@@ -17,11 +15,8 @@ export class VenuesMapPage implements OnInit {
   venuesPage: any;
   venuesMaps: any;
   venuesMapsDetail: any;
-  filterVenue: any;
-  map: any;
   coordinates: any;
-  @ViewChild('map') mapView: ElementRef;
-  // @ViewChild('map', {read:ElementRef, static: false}) mapRef: ElementRef;
+  mapid: any;
   constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute, private router: Router,private storage: Storage) {
     // Ambil param yang dikirim dari venues.ts
     // 'var' ada di app-routing.module.ts
@@ -31,120 +26,87 @@ export class VenuesMapPage implements OnInit {
       this.venuesMaps = data.venues;
       this.venuesMapsDetail = this.venuesMaps.filter(d=> d.id==this.venuesPage);
     })
-
-    this.showCurrentPosition();
   }
 
   ngOnInit() {
   }
 
-  async loadMap(lat, long){
-    
-
-    const boundingRect = this.mapView.nativeElement.getBoundingClientRect() as DOMRect;
-
-    CapacitorGoogleMaps.create({
-      width: Math.round(boundingRect.width),
-      height: Math.round(boundingRect.height),
-      x: Math.round(boundingRect.x),
-      y: Math.round(boundingRect.y),
-      latitude: -8.409518, //lat bali
-      longitude: 115.188919, //long bali
-      zoom: 10
-    });
-    
-      
-      for(let venue of this.venuesMaps){
-        if(this.venuesPage == venue.id){
-          for(let venuesMarker of venue.geojson.features){
-            const koor = venuesMarker.geometry.coordinates;
-              CapacitorGoogleMaps.addListener("onMapReady", async function() {  
-                  
-                    CapacitorGoogleMaps.addMarker({
-                      latitude: koor[1],
-                      longitude: koor[0],
-                      title: venuesMarker.properties.Name
-                    });
-
-                    CapacitorGoogleMaps.enableCurrentLocation({
-                      enabled:true
-                    });
-
-                    CapacitorGoogleMaps.setMapType({
-                      "type": "normal"
-                    })  
-                    
-                })
+  ionViewDidEnter() {
+    const initializeMap = async () => {
+      await CapacitorGoogleMaps.initialize({
+        key: "YOUR_IOS_MAPS_API_KEY",
+        devicePixelRatio: window.devicePixelRatio,
+      });
+      const element = document.getElementById("container");
+      const boundingRect = element.getBoundingClientRect();
+      try {
+        const result = await CapacitorGoogleMaps.createMap({
+          boundingRect: {
+            width: Math.round(boundingRect.width),
+            height: Math.round(boundingRect.height),
+            x: Math.round(boundingRect.x),
+            y: Math.round(boundingRect.y),
+          },
+          cameraPosition:{
+            target:{
+              latitude:-8.409518,
+              longitude: 115.188919
+            },
+            zoom:11
+          }
+        });
+        
+        element.style.background = "";
+        element.setAttribute("data-maps-id", result.googleMap.mapId);
+        this.mapid = result.googleMap.mapId;
+        for(let venue of this.venuesMaps){
+          if(this.venuesPage == venue.id){
+            for(let venuesMarker of venue.geojson.features){
+              const koor = venuesMarker.geometry.coordinates;     
+              CapacitorGoogleMaps.addMarker({
+                mapId:result.googleMap.mapId,
+                position:{
+                  latitude: koor[1],
+                  longitude: koor[0],
+                },
+                preferences:{
+                  title: venuesMarker.properties.Name
+                },
+              });     
+            }
           }
         }
+      } catch (e) {
+        alert("Map failed to load");
       }
-  }
 
-  async ionViewDidEnter() {
-    this.loadMap(-8.409518,115.188919); //Bali latitude and longitude
-  }
+      
+    };
+    
+    (function () {
+      initializeMap();
+    })();
 
-  ionViewDidLeave() {
-    CapacitorGoogleMaps.addListener("onMapReady", async function() {
-      CapacitorGoogleMaps.clear();
-    })
-    CapacitorGoogleMaps.close();
-  }
-
-  check(id) {
-    if (this.venuesPage == id) {
-      return true;
-    }
   }
 
   backToVenue() {
-    CapacitorGoogleMaps.addListener("onMapReady", async function() {
-      CapacitorGoogleMaps.clear();
-    })
-    CapacitorGoogleMaps.close();
     this.router.navigate(['venues']);
   }
 
-  // Method untuk menset latitude dan longitude dari suatu tempat
-  async setMapDetail(coordinates){
+  setMapDetail(coordinates){
     this.coordinates = coordinates;
     console.log(this.coordinates[0] + ' ' + this.coordinates[1]);
-    
-    CapacitorGoogleMaps.setCamera({
-      latitude: this.coordinates[1],
-      longitude: this.coordinates[0],
-      zoom: 15,
-      animate: true,
-      animationDuration: 12,
-      bearing:0,
-      
-    })
 
-    CapacitorGoogleMaps.setMapType({
-      "type": "normal"
-    })
-  }
-
-  printCurrentPosition = async () => {
-    const coordinates = await Geolocation.getCurrentPosition();
-  
-    alert("Latitude : " + coordinates.coords.latitude);
-    alert("Longitude : " + coordinates.coords.longitude);
-    console.log('Lat : ' + coordinates.coords.latitude + "| Lng : " + coordinates.coords.longitude);
-  };
-
-  showCurrentPosition(){
-    Geolocation.requestPermissions().then(async permission =>{
-      const coordinates = await Geolocation.getCurrentPosition();
-
-      CapacitorGoogleMaps.addMarker({
-        latitude: coordinates.coords.latitude,
-        longitude: coordinates.coords.longitude,
-        title: 'My Location'
-      })
-
-      alert("Latitude : " + coordinates.coords.latitude);
-      alert("Longitude : " + coordinates.coords.longitude);
-    })
+    CapacitorGoogleMaps.moveCamera({
+      mapId:this.mapid,
+      cameraPosition:{
+        target:{
+          latitude: this.coordinates[1],
+          longitude: this.coordinates[0],
+        },
+        zoom:15
+      },
+      duration:600
+    });     
   }
 }

@@ -58,7 +58,7 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(event) {
-    console.log('Begin async operation');
+    console.log('Begin async operation ' + event);
     this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
       console.log("Get latest data from server");
       

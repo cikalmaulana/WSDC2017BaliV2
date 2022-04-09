@@ -1,5 +1,20 @@
 $colors: ('#ec1c24', '#c49a6c', '#d189bb', '#4d113f');
 
+#container {
+    width: 100%; 
+    height: 400px; 
+    z-index: 999999;
+}
+
+ion-content{
+    margin-top: 400px;
+}
+
+#bod{
+    margin: 0; 
+    background: transparent !important;
+}
+
 #map{
     height: 400px;
     // background: #000;
