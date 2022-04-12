@@ -14,25 +14,20 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let venue of venuesMapsDetail; let i=index">
-      <div *ngIf="check(venue.id)">
-        <div class="venuesName">
+      <div>
+        <ion-label class="venuesName">
           <h5>{{venue.name}}</h5>
-        </div>
-        <div class="venuesDescContainer" *ngFor="let properties of venue.geojson.features">
+        </ion-label>
+        <div class="venuesDescContainer" *ngFor="let properties of venue.geojson.features; let j = index">
           <div class="venueDesc" (click)="setMapDetail(properties.geometry.coordinates)">
             <h4><b>{{properties.properties.Name}}</b></h4>
             <p>{{properties.properties.Description}}</p>
           </div>
           <div class="venuesDist" #distance>
-            <p>1.0 KM</p>
+            <p>{{userDistanceTo[j]}}</p>
           </div>
         </div>
-        
       </div>
-      
-      <!-- <h2 *ngIf="check(venue.id)">{{venue.geojson.features[i].properties.Name}}</h2> -->
-      <!-- <h2 >{{venuesPage}}</h2> -->
-      <!-- <p>{{venue.geojson.features.properties.description}}</p> -->
     </ion-item>
   </ion-list>
 </ion-content>

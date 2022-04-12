@@ -15,14 +15,20 @@ ion-content{
     background: transparent !important;
 }
 
-#map{
-    height: 400px;
-    // background: #000;
+ion-item{
+    margin-right: 16px;
+    margin-left: 16px;
 }
 
 ion-item h5{
     border-bottom: 1px solid grey;
-    padding-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: solid 1px;
 }
 
 .venuesDescContainer {
@@ -43,8 +49,8 @@ ion-item h5{
 
 .venuesDist p{
     margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
