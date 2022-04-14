@@ -10,6 +10,17 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
+
+ion-toolbar{
+    --opacity: 0;
+    background-color: white;
+    background-image: url("assets/icon/icon-header.png");
+    background-size: auto 80%; 
+    background-position: right;
+    background-repeat: no-repeat;
+    padding: 5px, 20px;
+}
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
