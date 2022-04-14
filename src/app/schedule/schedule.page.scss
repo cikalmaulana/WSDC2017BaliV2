@@ -7,7 +7,9 @@
   --background-checked: #2bb673;
   --color-checked: white;
   --indicator-color-checked: none;
-  border-radius: 50%;
+  --border-radius: 50%;
+  --background-hover: none;
+  --background-hover-opacity: none;
   width: 64px;
   height: 64px;
   padding: 10px 4px 15px;
@@ -34,11 +36,6 @@
   height: auto;
 }
 
-// .schedule_container .schedule_segment ion-segment-button .day {
-//   color: gray;
-//   --color-checked: white;
-// }
-
 .schedule_container ion-slides ion-list ion-item {
   display: grid;
   grid-template-columns: auto auto;
@@ -64,64 +61,3 @@
   font-size: 16px;
   font-weight: lighter;
 }
-
-// .schedule_container {
-//   display: flex;
-//   flex-wrap: wrap;
-//   height: 100%;
-// }
-
-// .schedule_segment {
-//   width: 100%;
-//   height: 64px;
-//   overflow-x: scroll;
-//   border-bottom: 1px solid black;
-//   color: black;
-// }
-
-// .schedule_segment ion-segment {
-//   //   background-color: #2bb673;
-//   //   color: white;
-//   //   margin: 7px;
-//   //   border-radius: 100px;
-//   //   width: 70px;
-//   //   display: inline-block;
-// }
-
-// .schedule_segment ion-segment-button {
-//   display: inline-block;
-//   width: 48px;
-//   height: 48px;
-//   padding: 20px;
-//   margin: 10px;
-//   border-radius: 50%;
-//   border: none;
-//   text-align: center;
-
-//   --background-checked: #2bb673;
-//   --color-checked: white;
-//   --indicator-color-checked: none;
-// }
-
-// // .schedule_segment ion-segment-button .day {
-// //   height: 16px;
-// //   line-height: 16px;
-// //   font-size: 1.1rem;
-// //   text-align: center;
-// //   text-transform: uppercase;
-// // }
-
-// // .schedule_segment ion-segment-button .date {
-// //   height: 14px;
-// //   line-height: 14px;
-// //   font-size: 1.3rem;
-// //   font-weight: bold;
-// //   text-align: center;
-// // }
-
-// .schedule_segment {
-//   width: 100%;
-//   height: 64px;
-//   overflow-x: scroll;
-//   border-bottom: 1px solid black;
-// }

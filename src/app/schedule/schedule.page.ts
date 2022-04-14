@@ -12,26 +12,19 @@ import { Storage } from '@ionic/storage';
 export class SchedulePage implements OnInit {
   @ViewChild('slides', { static: false }) slides: IonSlides;
   @ViewChild('segmentContainer', { static: false }) segmentContainer: ElementRef;
-  // @ViewChild('slides') slides: IonSlides;
   wsdcData: any;
   slideOpts = {
     initialSlide: 0,
     speed: 400,
   };
-  hariOn: any;
-  activeIdx: any;
   selectedSegmentIdx: any;
   currentIndex:any;
 
   constructor(private http: HttpClient,private storage: Storage) {
-    this.hariOn = 0;
     this.selectedSegmentIdx = 0;
   }
 
   ngOnInit() {
-    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
-    //   this.wsdcData = data.schedules;
-    // });
     this.storage.get('wsdcDataStorage').then((data) => {
       console.log("Masuk Schedule");
       this.wsdcData = data.schedules;
@@ -45,40 +38,24 @@ export class SchedulePage implements OnInit {
     return dayNames[dayOfWeek];
   }
 
-  slideChanged(slideButton) {
-    // this.hariOn = this.hariOn + 1;
-    // console.log(this.slides.getActiveIndex);
+  slideChanged() {
     this.slides.getActiveIndex().then((index: number) => {
       this.currentIndex = index;
-      // let segment = this.segmentContainer.nativeElement[index];
-      // segment.scrollIntoView();
       console.log(index);
-      console.log(this.segmentContainer.nativeElement);
-      
-      
+      this.changeSegment(index);
     });
+  }
 
-    // console.log(this.currentIndex);
-    
-    
-    // let activeIdx = this.slides.getActiveIndex();
-    // this.selectedSegmentIdx = activeIdx;
+  changeSegment(index){
+    document.getElementById(index).scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center'
+    });
+    this.selectedSegmentIdx = index;
   }
 
   onSegmentChanged(segmentButton) {
     this.slides.slideTo(segmentButton.detail.value);
-    console.log(segmentButton.detail.value);
-  }
-
-  cekHariOn(hari) {
-    if (this.hariOn == hari) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  updateHariOn(hari) {
-    this.hariOn = hari;
   }
 }
