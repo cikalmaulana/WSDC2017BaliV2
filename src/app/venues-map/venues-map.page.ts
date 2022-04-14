@@ -21,11 +21,10 @@ export class VenuesMapPage implements OnInit {
   userCoordinatesLng: any;
   mapid: any;
   userDistanceTo: string[];
-  arrCoordinateTemp : Array <{latitude: string, longitude: string}>;
   arrCoordinateLat: number[];
   arrCoordinateLng: number[];
   itemCounter: any;
-  userDistanceTemp: string;
+
   constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute, private router: Router,private storage: Storage) {
     // Ambil param yang dikirim dari venues.ts
     // 'var' ada di app-routing.module.ts
@@ -48,78 +47,90 @@ export class VenuesMapPage implements OnInit {
   ngOnInit() {
   }
 
-  initializeMap = async () => {
-    this.itemCounter = 0;
-    await CapacitorGoogleMaps.initialize({
-      key: "YOUR_IOS_MAPS_API_KEY",
-      devicePixelRatio: window.devicePixelRatio,
-    });
-    const element = document.getElementById("container");
-    const boundingRect = element.getBoundingClientRect();
-    try {
-      const result = await CapacitorGoogleMaps.createMap({
-        boundingRect: {
-          width: Math.round(boundingRect.width),
-          height: Math.round(boundingRect.height),
-          x: Math.round(boundingRect.x),
-          y: Math.round(boundingRect.y),
-        },
-        cameraPosition:{
-          target:{
-            latitude:-8.409518,
-            longitude: 115.188919
-          },
-          zoom:11
-        }
+  ionViewDidEnter() {
+    const initializeMap = async () => {
+      this.itemCounter = 0;
+      await CapacitorGoogleMaps.initialize({
+        key: "YOUR_IOS_MAPS_API_KEY",
+        devicePixelRatio: window.devicePixelRatio,
       });
-      
-      element.style.background = "";
-      element.setAttribute("data-maps-id", result.googleMap.mapId);
-      this.mapid = result.googleMap.mapId;
-      
+      const element = document.getElementById("container");
+      const boundingRect = element.getBoundingClientRect();
+      try {
+        const result = await CapacitorGoogleMaps.createMap({
+          boundingRect: {
+            width: Math.round(boundingRect.width),
+            height: Math.round(boundingRect.height),
+            x: Math.round(boundingRect.x),
+            y: Math.round(boundingRect.y),
+          },
+          cameraPosition:{
+            target:{ //Kuta, Bali -8.722396, 115.17671
+              latitude:-8.722396, 
+              longitude: 	115.17671
+            },
+            zoom:11
+          },
+          preferences:{
+            controls:{
+              isCompassButtonEnabled:true,
+              isMyLocationButtonEnabled:true,
+              isZoomButtonsEnabled:true
+            },
+            appearance:{
+              isMyLocationDotShown:true
+            }
+          },
+        });
+        
+        element.style.background = "";
+        element.setAttribute("data-maps-id", result.googleMap.mapId);
+        this.mapid = result.googleMap.mapId;
+        
+        for(let venue of this.venuesMaps){
+          if(this.venuesPage == venue.id){
+            for(let venuesMarker of venue.geojson.features){
+              this.itemCounter +=1;
+              const koor = venuesMarker.geometry.coordinates;  
+              CapacitorGoogleMaps.addMarker({
+                mapId:result.googleMap.mapId,
+                position:{
+                  latitude: koor[1],
+                  longitude: koor[0],
+                },
+                preferences:{
+                  title: venuesMarker.properties.Name
+                },
+              });     
+            }
+          }
+        }
+      } catch (e) {
+        alert("Map failed to load");
+      }
+  
+      // Insert distance
+      this.arrCoordinateLng = new Array(this.itemCounter);
+      this.arrCoordinateLat = new Array(this.itemCounter);
+      this.userDistanceTo = new Array(this.itemCounter);
+      this.itemCounter = 0;
       for(let venue of this.venuesMaps){
         if(this.venuesPage == venue.id){
           for(let venuesMarker of venue.geojson.features){
-            this.itemCounter +=1;
             const koor = venuesMarker.geometry.coordinates;  
-            CapacitorGoogleMaps.addMarker({
-              mapId:result.googleMap.mapId,
-              position:{
-                latitude: koor[1],
-                longitude: koor[0],
-              },
-              preferences:{
-                title: venuesMarker.properties.Name
-              },
-            });     
+            this.arrCoordinateLat[this.itemCounter]= koor[1];
+            this.arrCoordinateLng[this.itemCounter]= koor[0];
+            this.computeDistance(this.userCoordinatesLat,this.userCoordinatesLng,this.arrCoordinateLat[this.itemCounter],this.arrCoordinateLng[this.itemCounter])
+            this.userDistanceTo[this.itemCounter] = this.userDistance;
+            this.itemCounter+=1;
           }
         }
       }
-    } catch (e) {
-      alert("Map failed to load");
-    }
+    };
 
-    this.arrCoordinateLng = new Array(this.itemCounter);
-    this.arrCoordinateLat = new Array(this.itemCounter);
-    this.userDistanceTo = new Array(this.itemCounter);
-    this.itemCounter = 0;
-    for(let venue of this.venuesMaps){
-      this.arrCoordinateTemp = [];
-      if(this.venuesPage == venue.id){
-        for(let venuesMarker of venue.geojson.features){
-          const koor = venuesMarker.geometry.coordinates;  
-          this.arrCoordinateLat[this.itemCounter]= koor[1];
-          this.arrCoordinateLng[this.itemCounter]= koor[0];
-          this.computeDistance(this.userCoordinatesLat,this.userCoordinatesLng,this.arrCoordinateLat[this.itemCounter],this.arrCoordinateLng[this.itemCounter])
-          this.userDistanceTo[this.itemCounter] = this.userDistance;
-          this.itemCounter+=1;
-        }
-      }
-    }
-  };
-
-  ionViewDidEnter() {
-    this.initializeMap();
+    (function () {
+      initializeMap();
+    })();
   }
 
   backToVenue() {
@@ -139,7 +150,7 @@ export class VenuesMapPage implements OnInit {
         },
         zoom:15
       },
-      duration:600
+      duration:800
     });     
   } 
 
@@ -167,6 +178,5 @@ export class VenuesMapPage implements OnInit {
         this.userDistance = ">99km"
       }
       // console.log(Math.ceil(d/1000) + " km");
-       
   }
 }
