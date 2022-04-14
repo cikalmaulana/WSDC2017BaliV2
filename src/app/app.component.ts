@@ -23,10 +23,10 @@ export class AppComponent {
 
   async ngOnInit(){
     await this.storage.create();
-    await SplashScreen.show({
-      showDuration: 1000,
-      autoHide: true
-    });
+    // await SplashScreen.show({
+    //   showDuration: 1000,
+    //   autoHide: true
+    // });
   }
 
   

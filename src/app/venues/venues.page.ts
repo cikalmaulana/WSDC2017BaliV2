@@ -15,9 +15,6 @@ export class VenuesPage implements OnInit {
   constructor(private http: HttpClient, private router: Router,private storage: Storage) { }
 
   ngOnInit() {
-    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
-    //   this.wsdcData = data.venues;
-    // });
 
     this.storage.get('wsdcDataStorage').then((data) => {
       console.log("Masuk Venues");

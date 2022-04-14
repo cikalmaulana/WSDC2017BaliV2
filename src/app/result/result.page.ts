@@ -9,17 +9,11 @@ import { Storage } from '@ionic/storage';
 })
 export class ResultPage implements OnInit {
   @ViewChild('resultIFrame') resultIFrame: ElementRef;
-  wsdc_result: any;
 
   constructor(private http: HttpClient,private storage: Storage) { }
 
   ngOnInit() {
-    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
-    //   this.wsdc_result = data.result;
-    //   this.resultIFrame.nativeElement.contentWindow.location.assign(data.results);
-    // });
     this.storage.get('wsdcDataStorage').then((data) => {
-      console.log("Masuk Result");
       this.resultIFrame.nativeElement.contentWindow.location.assign(data.results);
     })
   }

@@ -13,10 +13,6 @@ export class DrawPage implements OnInit {
   constructor(private http: HttpClient,private storage: Storage) { }
 
   ngOnInit() {
-    // this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
-    //   this.drawIFrame.nativeElement.contentWindow.location.assign(data.draws);
-    // });
-
     this.storage.get('wsdcDataStorage').then((data) => {
       console.log("Masuk Draw");
       this.drawIFrame.nativeElement.contentWindow.location.assign(data.draws);

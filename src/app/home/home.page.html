@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -11,7 +11,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card color="secondary" style="height: 170px;" (click)="itemTapped()">
+  <ion-card color="secondary"  (click)="itemTapped()">
     <ion-grid>
       <ion-row>
         <ion-col size="9">
@@ -27,7 +27,7 @@
           </ion-card-content>
         </ion-col>
         <ion-col size="3">
-          <img style="width: 90px; height: 110px;" src="assets/icon/announcement.png"/>
+          <img src="assets/icon/announcement.png"/>
         </ion-col>
       </ion-row>
     </ion-grid>

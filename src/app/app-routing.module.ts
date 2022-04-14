@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
-  },
-  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
@@ -42,7 +38,8 @@ const routes: Routes = [
   {
     path: 'venues-map/:var',
     loadChildren: () => import('./venues-map/venues-map.module').then(m => m.VenuesMapPageModule)
-  }
+  },
+
 ];
 
 @NgModule({
