@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start" (click)="backToVenue()">
-      <ion-icon style="font-size: 24px; margin-left: 10px;" name="arrow-back-outline"></ion-icon>
+      <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-buttons>
     <ion-title>Venues</ion-title>
   </ion-toolbar>
@@ -12,15 +12,16 @@
 </div>
 
 <ion-content>
+  <ion-label>
+    <h3 #pagetitle id="pagetitle">{{venuesPage.name}}</h3>
+  </ion-label>
+
   <ion-list>
     <ion-item *ngFor="let venue of venuesMapsDetail; let i=index">
       <div>
-        <ion-label class="venuesName">
-          <h3 id="pagetitle">{{venue.name}}</h3>
-        </ion-label>
         <div class="venuesDescContainer" *ngFor="let properties of venue.geojson.features; let j = index">
           <div class="venueDesc" (click)="featTapped(properties.geometry.coordinates)">
-            <h4><b>{{properties.properties.Name}}</b></h4>
+            <h2>{{properties.properties.Name}}</h2>
             <p>{{properties.properties.Description}}</p>
           </div>
           <div class="venuesDist" #distance>

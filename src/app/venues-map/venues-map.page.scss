@@ -1,56 +1,73 @@
-$colors: ('#ec1c24', '#c49a6c', '#d189bb', '#4d113f');
 
-#mapContainer {
-    width: 100%; 
-    height: 400px; 
-    z-index: 999999;
-}
-
-ion-content{
-    margin-top: 400px;
+ion-toolbar{
+    ion-icon{
+        font-size: 24px; 
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
 
 #container{
     margin: 0; 
-    background: transparent !important;
+    background: transparent;
+    #mapContainer {
+        width: 100%; 
+        height: 400px; 
+        z-index: 999999;
+    }
 }
 
-ion-item{
-    margin-right: 16px;
-    margin-left: 16px;
-}
+ion-content{
+    margin-top: 400px;
+    ion-label{
+        #pagetitle{
+            margin-top: 20px;
+            margin-bottom: 4px;
+            margin-right: 16px;
+            margin-left: 16px;
+            padding-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 16px;
+            font-weight: 600;
+            border-bottom: solid 1px;
+        }
+    }
 
-ion-item h3{
-    border-bottom: 1px solid grey;
-    margin-top: 20px;
-    margin-bottom: 4px;
-    padding-bottom: 8px;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 600;
-    border-bottom: solid 1px;
-}
-
-.venuesDescContainer {
-    border-bottom: 1px solid grey;
-    width: 100%;
-    display: inline-grid;
-    grid-template-columns: 80% 20%;
-}
-
-.venuesDescContainer p{
-    margin-top: -8px;
-}
-
-.venuesDist{
-    position: relative;
-    margin-left: 10px;
-}
-
-.venuesDist p{
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    ion-list{
+        ion-item{
+            margin-right: 16px;
+            width: 100%;
+            .venuesDescContainer {
+                border-bottom: 1px solid grey;
+                width: 100%;
+                display: inline-grid;
+                grid-template-columns: 80% 20%;
+                .venueDesc{
+                    h2{
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                    p{
+                        margin-top: -8px;
+                        font-size: 16px;
+                        color: #5c5c5c;
+                    }
+                }
+                
+                .venuesDist{
+                    position: relative;
+                    margin-left: 10px;
+                    p{
+                        margin: 0;
+                        position: absolute;
+                        top: 50%;
+                        -ms-transform: translateY(-50%);
+                        transform: translateY(-50%);
+                        font-size: 16px;
+                        color: #909090;
+                    }
+                }
+            }
+        }
+    }
 }

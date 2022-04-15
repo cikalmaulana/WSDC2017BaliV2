@@ -1,7 +1,5 @@
-import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { CapacitorGoogleMaps } from "@capacitor-community/google-maps";
 import { Geolocation } from '@capacitor/geolocation';
@@ -13,7 +11,6 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class VenuesMapPage implements OnInit {
   venuesPage: any;
-  venuesMaps: any;
   venuesMapsDetail: any;
   coordinates: any;
   userDistance: any;
@@ -24,17 +21,42 @@ export class VenuesMapPage implements OnInit {
   arrCoordinateLat: number[];
   arrCoordinateLng: number[];
   itemCounter: any;
+  data: any;
+  items: Array<{id: string, name: string, lat: string, lang: string, description: string, distance: string, idcolor:number }>
+  pageTitleColors: Array<string> = ["#ec1c24", "#c49a6c", "#d189bb", "#4d113f"];
+  coloridx: number;
 
-  constructor(private http: HttpClient, private actovatedRoute: ActivatedRoute, private router: Router,private storage: Storage) {
-    // Ambil param yang dikirim dari venues.ts
-    // 'var' ada di app-routing.module.ts
-    this.venuesPage = this.actovatedRoute.snapshot.paramMap.get('var')
+  constructor(private actovatedRoute: ActivatedRoute, private router: Router,private storage: Storage) {
+
+    //Get data from venues page.
+    this.items = [];
+    this.actovatedRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.data = this.router.getCurrentNavigation().extras.state.venuesData;
+        this.venuesPage = this.data;
+      }
+      
+      for (let wsdcVenueFeatures of this.venuesPage.geojson.features) {
+        this.items.push({
+          name: wsdcVenueFeatures.properties.Name,
+          id: this.venuesPage.id,
+          idcolor: this.venuesPage.colorIdx,
+          lang: wsdcVenueFeatures.geometry.coordinates[0],
+          lat: wsdcVenueFeatures.geometry.coordinates[1],
+          description: wsdcVenueFeatures.properties.Description,
+          distance: '? km'
+        });
+      }
+      document.getElementById("pagetitle").style.color = this.pageTitleColors[this.items[0].idcolor-1];
+    });
+
+    // Select data from storage
     this.storage.get('wsdcDataStorage').then((data) => {
-      console.log("Masuk Venues Map");
-      this.venuesMaps = data.venues;
-      this.venuesMapsDetail = this.venuesMaps.filter(d=> d.id==this.venuesPage);
+      this.venuesMapsDetail = data.venues;
+      this.venuesMapsDetail = this.venuesMapsDetail.filter(d=> d.id==this.items[0].id);
     })
 
+    //save user lat & lng location
     const printCurrentPosition = async () => {
       const coordinates = await Geolocation.getCurrentPosition();
       this.userCoordinatesLat = coordinates.coords.latitude;
@@ -48,6 +70,7 @@ export class VenuesMapPage implements OnInit {
   }
 
   ionViewDidEnter() {
+    // create map and add marker
     const initializeMap = async () => {
       this.itemCounter = 0;
       await CapacitorGoogleMaps.initialize({
@@ -86,44 +109,42 @@ export class VenuesMapPage implements OnInit {
         element.style.background = "";
         element.setAttribute("data-maps-id", result.googleMap.mapId);
         this.mapid = result.googleMap.mapId;
+        console.log(this.venuesMapsDetail);
         
-        for(let venue of this.venuesMaps){
-          if(this.venuesPage == venue.id){
-            for(let venuesMarker of venue.geojson.features){
-              this.itemCounter +=1;
-              const koor = venuesMarker.geometry.coordinates;  
-              CapacitorGoogleMaps.addMarker({
-                mapId:result.googleMap.mapId,
-                position:{
-                  latitude: koor[1],
-                  longitude: koor[0],
-                },
-                preferences:{
-                  title: venuesMarker.properties.Name
-                },
-              });     
-            }
+        //add marker to each location
+        for(let venue of this.venuesMapsDetail){
+          for(let venuesMarker of venue.geojson.features){
+            this.itemCounter +=1;
+            const koor = venuesMarker.geometry.coordinates;  
+            CapacitorGoogleMaps.addMarker({
+              mapId:result.googleMap.mapId,
+              position:{
+                latitude: koor[1],
+                longitude: koor[0],
+              },
+              preferences:{
+                title: venuesMarker.properties.Name
+              },
+            });     
           }
         }
       } catch (e) {
         alert("Map failed to load");
       }
   
-      // Insert distance
+      // Insert distance to each location
       this.arrCoordinateLng = new Array(this.itemCounter);
       this.arrCoordinateLat = new Array(this.itemCounter);
       this.userDistanceTo = new Array(this.itemCounter);
       this.itemCounter = 0;
-      for(let venue of this.venuesMaps){
-        if(this.venuesPage == venue.id){
-          for(let venuesMarker of venue.geojson.features){
-            const koor = venuesMarker.geometry.coordinates;  
-            this.arrCoordinateLat[this.itemCounter]= koor[1];
-            this.arrCoordinateLng[this.itemCounter]= koor[0];
-            this.computeDistance(this.userCoordinatesLat,this.userCoordinatesLng,this.arrCoordinateLat[this.itemCounter],this.arrCoordinateLng[this.itemCounter])
-            this.userDistanceTo[this.itemCounter] = this.userDistance;
-            this.itemCounter+=1;
-          }
+      for(let venue of this.venuesMapsDetail){
+        for(let venuesMarker of venue.geojson.features){
+          const koor = venuesMarker.geometry.coordinates;  
+          this.arrCoordinateLat[this.itemCounter]= koor[1];
+          this.arrCoordinateLng[this.itemCounter]= koor[0];
+          this.computeDistance(this.userCoordinatesLat,this.userCoordinatesLng,this.arrCoordinateLat[this.itemCounter],this.arrCoordinateLng[this.itemCounter])
+          this.userDistanceTo[this.itemCounter] = this.userDistance;
+          this.itemCounter+=1;
         }
       }
     };

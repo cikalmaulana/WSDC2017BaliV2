@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
 
@@ -12,7 +11,7 @@ import { LoadingController } from '@ionic/angular';
 export class ResultPage implements OnInit {
   @ViewChild('resultIFrame') resultIFrame: ElementRef;
 
-  constructor(private http: HttpClient,private storage: Storage,public loadingController: LoadingController) { }
+  constructor(private storage: Storage,public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.storage.get('wsdcDataStorage').then((data) => {

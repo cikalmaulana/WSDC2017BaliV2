@@ -1,4 +1,4 @@
-import { Component, OnInit,ElementRef} from '@angular/core';
+import { Component, ElementRef} from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -8,10 +8,10 @@ import { Storage } from '@ionic/storage';
   templateUrl: './schedule.page.html',
   styleUrls: ['./schedule.page.scss'],
 })
-export class SchedulePage implements OnInit {
-  @ViewChild('slides', { static: false }) slides: IonSlides;
+export class SchedulePage{
+  @ViewChild('scheduleSlider', { static: false }) slider: IonSlides;
   @ViewChild('segmentContainer', { static: false }) segmentContainer: ElementRef;
-  wsdcData: any;
+  schedules: any;
   slideOpts = {
     initialSlide: 0,
     speed: 400,
@@ -20,14 +20,11 @@ export class SchedulePage implements OnInit {
   currentIndex:any;
 
   constructor(private storage: Storage) {
-    this.selectedSegmentIdx = 0;
-  }
-
-  ngOnInit() {
-    this.storage.get('wsdcDataStorage').then((data) => {
-      console.log("Masuk Schedule");
-      this.wsdcData = data.schedules;
-    })
+    
+    this.storage.get('wsdcDataStorage').then((val) => {
+      this.schedules = val.schedules;
+      this.selectedSegmentIdx = 0;
+    });
   }
 
   getDayName(sqlDate: string) {
@@ -42,24 +39,19 @@ export class SchedulePage implements OnInit {
     return date.getDate();
   }
 
-  slideChanged() {
-    this.slides.getActiveIndex().then((index: number) => {
+  onSlideChanged() {
+    this.slider.getActiveIndex().then((index: number) => {
       this.currentIndex = index;
-      console.log(index);
-      this.changeSegment(index);
+      document.getElementById(this.currentIndex).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center'
+      });
+      this.selectedSegmentIdx = index;
     });
-  }
-
-  changeSegment(index){
-    document.getElementById(index).scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'center'
-    });
-    this.selectedSegmentIdx = index;
   }
 
   onSegmentChanged(segmentButton) {
-    this.slides.slideTo(segmentButton.detail.value);
+    this.slider.slideTo(segmentButton.detail.value);
   }
 }

@@ -11,7 +11,7 @@
   <ion-grid>
     <ion-row>
       <ion-list no-lines>
-        <ion-button color="white" id="{{wsdcVenue.id}}" *ngFor="let wsdcVenue of wsdcData" (click)="itemTapped(wsdcVenue.id)">
+        <ion-button color="white" id="{{wsdcVenue.id}}" *ngFor="let wsdcVenue of venuesData" (click)="itemTapped(wsdcVenue)">
           <ion-icon name={{wsdcVenue.icon}}></ion-icon>
           <span>{{ wsdcVenue.name }}</span>
         </ion-button>

@@ -11,15 +11,7 @@
 
 /* Core CSS required for Ionic components to work properly */
 
-ion-toolbar{
-    --opacity: 0;
-    background-color: white;
-    background-image: url("assets/icon/icon-header.png");
-    background-size: auto 80%; 
-    background-position: right;
-    background-repeat: no-repeat;
-    padding: 5px, 20px;
-}
+
 
 @import "~@ionic/angular/css/core.css";
 
@@ -35,3 +27,68 @@ ion-toolbar{
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+    /* ion-navbar change to ion-toolbar */
+ion-toolbar{
+    --opacity: 0;
+    background-color: white;
+    background-image: url("assets/icon/icon-header.png");
+    background-size: auto 80%; 
+    background-position: right;
+    background-repeat: no-repeat;
+    padding: 5px, 20px;
+    ion-title{
+        font-size: 16px;
+        padding: 0px;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+    }
+}
+
+    /* Navigation menu */
+ion-menu {
+    ion-icon {
+        font-size: 25px;
+        margin-right: 5px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    ion-list-header {
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    ion-label {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+    
+.wsdc-main-heading {
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    font-family: "Gotham";
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+.wsdc-heading {
+    font-family: "Gotham";
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+.wsdc-sub-heading {
+    font-family: "Gotham";
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.wsdc-content {
+    font-family: "Gotham";
+    font-size: 1.3rem;
+    font-weight: normal;
+}

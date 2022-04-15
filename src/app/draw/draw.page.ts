@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -11,7 +10,7 @@ import { Storage } from '@ionic/storage';
 
 export class DrawPage implements OnInit {
   @ViewChild('drawIFrame') drawIFrame: ElementRef;
-  constructor(private http: HttpClient,private storage: Storage,public loadingController: LoadingController) { }
+  constructor(private storage: Storage,public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.storage.get('wsdcDataStorage').then((data) => {

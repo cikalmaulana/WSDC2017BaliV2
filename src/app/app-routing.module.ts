@@ -36,7 +36,7 @@ const routes: Routes = [
     loadChildren: () => import('./venues/venues.module').then(m => m.VenuesPageModule)
   },
   {
-    path: 'venues-map/:var',
+    path: 'venues-map',
     loadChildren: () => import('./venues-map/venues-map.module').then(m => m.VenuesMapPageModule)
   },
 

@@ -1,6 +1,24 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+// WSDC App Color
+$colors: (
+  primary:    #488aff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+  wsdc_blue: #25aae1, // Warna biru
+  wsdc_red: #ec1c24, // Warna merah
+  wsdc_green: #2bb673, // Warna hijau
+  wsdc_purple: #d189bb, // Warna ungu
+  wsdc_brown: #c49a6c, // Warna cokelat
+  wsdc_darkestgrey: #5c5c5c, // Warna teks abu2 di -> Emergency Contacts; tanggal dan info di Schedule; info venues
+  wsdc_darkgrey: #d0d0d0, // Warna garis abu2 muda
+  wsdc_lightgrey: #909090, // Warna teks abu2 muda -> tulisan hari di Schedule; tulisan “5 km” di info venues
+  wsdc_lightestgrey: #949494 // Warna garis abu2 sedang (di Home Ipad)
+);
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/

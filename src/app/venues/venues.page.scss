@@ -5,12 +5,12 @@ ion-content{
     padding-top: 0px;
     ion-list{
       width: 100%;
+      padding-top: 8px;
+        padding-bottom: 8px;
       ion-button{
         color: black;
-        border: none;
         border-bottom: 1px solid #d0d0d0;
         width: 100%;
-        text-align: left;
         height: 50px;
         span{
           text-align:left;
@@ -22,7 +22,6 @@ ion-content{
       ion-button:nth-child(1) {
         border-left: solid #ec1c24;
         border-left-width: 3px ;
-
         span {
           color:#ec1c24;
         }
@@ -31,7 +30,6 @@ ion-content{
       ion-button:nth-child(2) {
         border-left: solid #c49a6c;
         border-left-width: 3px;
-      
         span {
           color: #c49a6c;
         }
@@ -40,7 +38,6 @@ ion-content{
       ion-button:nth-child(3) {
         border-left: solid #d189bb;
         border-left-width: 3px;
-      
         span {
           color: #d189bb;
         }
@@ -49,7 +46,6 @@ ion-content{
       ion-button:nth-child(4) {
         border-left: solid #4d113f;
         border-left-width: 3px;
-      
         span {
           color: #4d113f;
         }
