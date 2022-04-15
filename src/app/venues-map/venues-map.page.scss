@@ -1,6 +1,6 @@
 $colors: ('#ec1c24', '#c49a6c', '#d189bb', '#4d113f');
 
-#container {
+#mapContainer {
     width: 100%; 
     height: 400px; 
     z-index: 999999;
@@ -10,7 +10,7 @@ ion-content{
     margin-top: 400px;
 }
 
-#bod{
+#container{
     margin: 0; 
     background: transparent !important;
 }
@@ -20,7 +20,7 @@ ion-item{
     margin-left: 16px;
 }
 
-ion-item h5{
+ion-item h3{
     border-bottom: 1px solid grey;
     margin-top: 20px;
     margin-bottom: 4px;

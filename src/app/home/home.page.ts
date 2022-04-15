@@ -4,6 +4,7 @@ import { Browser } from '@capacitor/browser';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -12,10 +13,9 @@ import { SplashScreen } from '@capacitor/splash-screen';
 })
 
 export class HomePage implements OnInit {
-  wsdcDataAnnouncement: any;
-  wsdcDataNewsletters: any;
+  wsdcData:any;
 
-  constructor(private http: HttpClient,private storage: Storage,private router: Router) { }
+  constructor(private http: HttpClient,private storage: Storage,private router: Router,public toastController: ToastController) { }
 
   ionViewDidEnter(){
     SplashScreen.hide()
@@ -26,42 +26,43 @@ export class HomePage implements OnInit {
       
       if(data == null){
         this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
-          console.log("Masuk http");
-          
-          this.wsdcDataAnnouncement = data.announcements;
-          this.wsdcDataNewsletters = data.newsletters;
-          this.storage.set('wsdcDataStorage',data);
-          console.log(this.wsdcDataAnnouncement);
-          console.log(this.wsdcDataNewsletters);
-          
+          this.wsdcData = data;
+          this.storage.set('wsdcDataStorage',data);       
         });
       }else{    
-        this.wsdcDataAnnouncement = data.announcements;
-        this.wsdcDataNewsletters = data.newsletters;
+        this.wsdcData = data;
       }
       
     })
     
   }
 
-  doRefresh(event) {
-    console.log('Begin async operation ' + event);
+  doRefresh(refresher) {
+    console.log('Begin async operation ' + refresher);
     this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
-      console.log("Get latest data from server");
-      
-      this.wsdcDataAnnouncement = data.announcements;
-      this.wsdcDataNewsletters = data.newsletters;
+      this.wsdcData = data;
+      this.storage.clear();
       this.storage.set('wsdcDataStorage',data);
-      console.log("Data updated!");
-      
-      console.log(this.wsdcDataAnnouncement);
-      console.log(this.wsdcDataNewsletters);
-      
+      console.log("Data updated!");      
+    },
+    error => {
+      // Timeout or no connection
+      this.presentToast();
+      refresher.complete();
     });
+
     setTimeout(() => {
       console.log('Async operation has ended');
-      event.target.complete();
+      refresher.target.complete();
     }, 2000);
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Failed to refresh information',
+      duration: 2000
+    });
+    toast.present();
   }
 
   formatDatetime(sqlDatetime: string) {
@@ -79,7 +80,7 @@ export class HomePage implements OnInit {
     Browser.open({ url: newsUrl });
   }
 
-  itemTapped() {
+  onAnnouncementClick() {
     this.router.navigate(['announcement']);
   }
 }

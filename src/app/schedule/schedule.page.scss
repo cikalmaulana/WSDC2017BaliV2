@@ -1,63 +1,86 @@
-.schedule_container {
-  display: flex;
-  flex-wrap: wrap;
-}
+ion-content{
+  #schedulesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    #schedulesSegments{
+      overflow-x: scroll;
+      border-bottom: 1px solid grey;
+      background-color: white;
+      overflow-x: scroll;
+      ion-segment-button {
+        --background-checked: #2bb673;
+        --color-checked: white;
+        --indicator-color-checked: none;
+        --border-radius: 50%;
+        --background-hover: none;
+        --background-hover-opacity: none;
+        width: 48px;
+        height: 48px;
+        padding: 2px;
+        margin: 8px;
+        border-radius: 50%;
+        border: none;
+        .day{
+          height: 16px;
+          line-height: 16px;
+          font-size: 12px;
+          text-align: center;
+          text-transform: uppercase;
+        }
+        .date {
+          height: 14px;
+          line-height: 14px;
+          font-size: 14px;
+          font-weight: bold;
+          text-align: center;
+        }
+      }
+      ion-segment {
+        white-space: nowrap;
+        height: 100%;
+      }
+    }
 
-.schedule_container .schedule_segment ion-segment-button {
-  --background-checked: #2bb673;
-  --color-checked: white;
-  --indicator-color-checked: none;
-  --border-radius: 50%;
-  --background-hover: none;
-  --background-hover-opacity: none;
-  width: 64px;
-  height: 64px;
-  padding: 10px 4px 15px;
-  margin: 10px 3px 10px 3px;
-  border: none;
-}
-
-.schedule_segment {
-  overflow-x: scroll;
-  border-bottom: 1px solid grey;
-  background-color: white;
-  overflow-x: scroll;
-}
-
-.schedule_segment ion-segment {
-  white-space: nowrap;
-  height: 100%;
-}
-
-.schedule_slides ion-slides {
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: auto;
-}
-
-.schedule_container ion-slides ion-list ion-item {
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-.agendaDate {
-  margin-right: 20px;
-  padding-left: 10px;
-  font-weight: bold;
-  color: #2bb673;
-  border-left: 1px solid #2bb673;
-  font-family: Roboto;
-}
-
-.agendaCaption h3 {
-  margin-top: 5px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.agendaCaption p {
-  margin-top: -10px;
-  font-size: 16px;
-  font-weight: lighter;
+    #schedulesSlides{
+      ion-slides {
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: auto;
+        ion-list{
+          ion-item {
+            display: grid;
+            grid-template-columns: auto auto;
+            ion-note {
+              margin-top: 5px;
+              margin-right: 20px;
+              margin-bottom: 5px;
+              padding-left: 10px;
+              padding-top: 15px;
+              font-weight: bold;
+              font-size: 18px;
+              color: #2bb673;
+              border-left: 1px solid #2bb673;
+              height: 90%;
+            }
+            #agendaCaption{
+              margin-top: 7px;
+              margin-bottom: 7px;
+              h3 {
+                margin-top: 5px;
+                font-size: 18px;
+                font-weight: bold;
+              }
+              p {
+                margin-top: -10px;
+                font-size: 16px;
+                font-weight: normal;
+              }
+            }
+          }
+          
+        }
+      }
+    }
+  }
 }

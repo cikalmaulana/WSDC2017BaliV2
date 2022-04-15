@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { VenuesMapPageModule } from '../venues-map/venues-map.module';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
@@ -12,14 +10,14 @@ import { Storage } from '@ionic/storage';
 })
 export class VenuesPage implements OnInit {
   wsdcData: any;
-  constructor(private http: HttpClient, private router: Router,private storage: Storage) { }
-
-  ngOnInit() {
-
+  constructor(private http: HttpClient, private router: Router,private storage: Storage) {
     this.storage.get('wsdcDataStorage').then((data) => {
       console.log("Masuk Venues");
       this.wsdcData = data.venues;
     })
+  }
+
+  ngOnInit() {
   }
 
   itemTapped(id) {

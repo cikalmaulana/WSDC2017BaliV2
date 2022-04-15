@@ -1,70 +1,59 @@
-ion-button{
-  span{
-    text-align:left;
-    width:100%;
-    margin-left:20px;
+ion-content{
+  ion-grid {
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+    ion-list{
+      width: 100%;
+      ion-button{
+        color: black;
+        border: none;
+        border-bottom: 1px solid #d0d0d0;
+        width: 100%;
+        text-align: left;
+        height: 50px;
+        span{
+          text-align:left;
+          width:100%;
+          margin-left:20px;
+        }
+      }
+      
+      ion-button:nth-child(1) {
+        border-left: solid #ec1c24;
+        border-left-width: 3px ;
+
+        span {
+          color:#ec1c24;
+        }
+      }
+
+      ion-button:nth-child(2) {
+        border-left: solid #c49a6c;
+        border-left-width: 3px;
+      
+        span {
+          color: #c49a6c;
+        }
+      }
+
+      ion-button:nth-child(3) {
+        border-left: solid #d189bb;
+        border-left-width: 3px;
+      
+        span {
+          color: #d189bb;
+        }
+      }
+      
+      ion-button:nth-child(4) {
+        border-left: solid #4d113f;
+        border-left-width: 3px;
+      
+        span {
+          color: #4d113f;
+        }
+      }
+    }
   }
-}
-
-ion-list{
-  width: 100%;
-}
-
-ion-grid {
-  padding-right: 0px;
-  padding-left: 0px;
-  padding-top: 0px;
-}
-
-ion-button {
-  color: black;
-  border: none;
-  border-bottom: 1px solid #d0d0d0;
-  width: 100%;
-  text-align: left;
-  height: 50px;
-}
-
-ion-button:nth-child(1) {
-  border-left: solid #ec1c24;
-  border-left-width: 3px ;
-
-  span {
-    color:#ec1c24;
-  }
-}
-
-ion-button:nth-child(2) {
-  border-left: solid #c49a6c;
-  border-left-width: 3px;
-
-  span {
-    color: #c49a6c;
-  }
-}
-
-ion-button:nth-child(3) {
-  border-left: solid #d189bb;
-  border-left-width: 3px;
-
-  span {
-    color: #d189bb;
-  }
-}
-
-ion-button:nth-child(4) {
-  border-left: solid #4d113f;
-  border-left-width: 3px;
-
-  span {
-    color: #4d113f;
-  }
-}
-
-ion-button span {
-  text-align: left;
-}
-
-ion-list {
-  width: 100%;
 }

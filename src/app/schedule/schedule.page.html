@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -8,24 +8,25 @@
 </ion-header>
 
 <ion-content>
-  <div class="schedule_container">
-    <div class="schedule_segment" slot="fixed">
+  <div id="schedulesContainer">
+    <div id="schedulesSegments" slot="fixed">
       <ion-segment #segmentContainer scrollable [(ngModel)]="selectedSegmentIdx"  (ionChange)="onSegmentChanged($event)"> 
         <ion-segment-button *ngFor="let day of wsdcData; let i = index;" [value]="i" [id]="i">
           <div class="day">{{ getDayName(day.date)}}</div>
-          <div class="date">{{ i+1 }}</div>
+          <div class="date">{{ getDate(day.date) }}</div>
         </ion-segment-button>
       </ion-segment>
     </div>
-    <div class="schedule_slides">
-      <ion-slides #slides pager="true" [options]="slideOpts" (ionSlideDidChange)="slideChanged()">
-        <ion-slide *ngFor="let schedules of wsdcData; let i = index;">
-          <ion-list>
-            <ion-item *ngFor="let agenda of schedules.agenda; let j = index;" >
-              <div class="agendaDate">
-                <p>{{agenda.start}} <br> {{agenda.end}}</p>
-              </div>
-              <div class="agendaCaption">
+    <div id="schedulesSlides">
+      <ion-slides #slides [options]="slideOpts" (ionSlideDidChange)="slideChanged()">
+        <ion-slide *ngFor="let schedules of wsdcData;">
+          <ion-list lines="full">
+            <ion-item *ngFor="let agenda of schedules.agenda;" >
+              <ion-note item-start>
+                  {{agenda.start}} <br> 
+                  {{agenda.end}}
+              </ion-note>
+              <div id="agendaCaption">
                 <h3><b>{{agenda.title}}</b></h3>
                 <p>{{agenda.subtitle}}</p>
               </div>

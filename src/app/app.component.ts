@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular'
-import { SplashScreen } from '@capacitor/splash-screen';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -23,10 +22,6 @@ export class AppComponent {
 
   async ngOnInit(){
     await this.storage.create();
-    // await SplashScreen.show({
-    //   showDuration: 1000,
-    //   autoHide: true
-    // });
   }
 
   

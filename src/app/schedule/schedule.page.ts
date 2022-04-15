@@ -1,5 +1,4 @@
 import { Component, OnInit,ElementRef} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -20,7 +19,7 @@ export class SchedulePage implements OnInit {
   selectedSegmentIdx: any;
   currentIndex:any;
 
-  constructor(private http: HttpClient,private storage: Storage) {
+  constructor(private storage: Storage) {
     this.selectedSegmentIdx = 0;
   }
 
@@ -36,6 +35,11 @@ export class SchedulePage implements OnInit {
     var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     var dayOfWeek = date.getDay();
     return dayNames[dayOfWeek];
+  }
+
+  getDate(sqlDate: string) {
+    var date = new Date(sqlDate);
+    return date.getDate();
   }
 
   slideChanged() {

@@ -54,7 +54,7 @@ export class VenuesMapPage implements OnInit {
         key: "YOUR_IOS_MAPS_API_KEY",
         devicePixelRatio: window.devicePixelRatio,
       });
-      const element = document.getElementById("container");
+      const element = document.getElementById("mapContainer");
       const boundingRect = element.getBoundingClientRect();
       try {
         const result = await CapacitorGoogleMaps.createMap({
@@ -137,10 +137,8 @@ export class VenuesMapPage implements OnInit {
     this.router.navigate(['venues']);
   }
 
-  setMapDetail(coordinates){
+  featTapped(coordinates){
     this.coordinates = coordinates;
-    console.log(this.coordinates[0] + ' ' + this.coordinates[1]);
-
     CapacitorGoogleMaps.moveCamera({
       mapId:this.mapid,
       cameraPosition:{

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
@@ -7,16 +8,27 @@ import { Storage } from '@ionic/storage';
   templateUrl: './draw.page.html',
   styleUrls: ['./draw.page.scss'],
 })
+
 export class DrawPage implements OnInit {
   @ViewChild('drawIFrame') drawIFrame: ElementRef;
-
-  constructor(private http: HttpClient,private storage: Storage) { }
+  constructor(private http: HttpClient,private storage: Storage,public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.storage.get('wsdcDataStorage').then((data) => {
-      console.log("Masuk Draw");
       this.drawIFrame.nativeElement.contentWindow.location.assign(data.draws);
-    })
+    });
+    this.presentLoading();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      backdropDismiss​: true
+    });
+    await loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, 500);
   }
 
   drawFrameLoad(){

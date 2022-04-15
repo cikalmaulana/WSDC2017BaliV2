@@ -11,7 +11,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card color="secondary"  (click)="itemTapped()">
+  <ion-card color="secondary"  (click)="onAnnouncementClick()">
     <ion-grid>
       <ion-row>
         <ion-col size="9">
@@ -19,11 +19,9 @@
             <ion-card-title>Latest Announcement</ion-card-title>
           </ion-card-header>
         
-          <ion-card-content *ngFor="let announcement of wsdcDataAnnouncement; let i = index;">
-            <div *ngIf="1 > i">
-              <h4><b>{{ formatDatetime(announcement.localtime) }}</b></h4>
-              <p>{{ announcement.message }}</p>
-            </div>
+          <ion-card-content>
+              <h4><b>{{ formatDatetime(wsdcData?.announcements[0].localtime) }}</b></h4>
+              <p>{{ wsdcData?.announcements[0].message }}</p>
           </ion-card-content>
         </ion-col>
         <ion-col size="3">
@@ -38,11 +36,11 @@
       <ion-icon name="book-outline"></ion-icon>
       <ion-label class="label_newsletters"><h1><b> Newsletters</b></h1></ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let news of wsdcDataNewsletters; let i = index;">
+    <ion-item *ngFor="let wsdcNews of wsdcData?.newsletters; let i = index;">
       <div class="newsletters" >
-        <img src="http://wsdc.dnartworks.com/uploads/newsletter/{{news.id}}/thumbnail.jpg">
-        <h2 text-wrap>{{news.title}}</h2> <br>
-        <ion-button class="ion-padding-end" full block color="danger" (click)="launch(news.url)">Read More</ion-button>
+        <img src="http://wsdc.dnartworks.com/uploads/newsletter/{{wsdcNews.id}}/thumbnail.jpg">
+        <h2 text-wrap>{{wsdcNews.title}}</h2> <br>
+        <ion-button class="ion-padding-end" full block color="danger" (click)="launch(wsdcNews.url)">Read More</ion-button>
       </div>
     </ion-item>
   </ion-list>

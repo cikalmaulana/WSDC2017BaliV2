@@ -8,16 +8,19 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./info.page.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class InfoPage implements OnInit {
-  infos: any;
 
-  constructor(private http: HttpClient,private storage: Storage) { }
+export class InfoPage implements OnInit {
+  wsdcInfoData: any;
+
+  constructor(private http: HttpClient,private storage: Storage) { 
+    this.storage.get('wsdcDataStorage').then((data) => {
+      this.wsdcInfoData = data.info;
+      this.wsdcInfoData = this.wsdcInfoData.replace(new RegExp('icon-telephone','g'), '<img src="assets/icon/telephone.png" alt="Telephone Icon" class="icon"/>');
+    })
+  }
 
   ngOnInit() {
-    this.storage.get('wsdcDataStorage').then((data) => {
-      this.infos = data.info;
-      this.infos = this.infos.replace(new RegExp('icon-telephone','g'), '<img src="assets/icon/telephone.png" alt="Telephone Icon" class="icon"/>');
-    })
+    
   }
 
 }
