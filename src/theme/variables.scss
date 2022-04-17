@@ -1,26 +1,19 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
-// WSDC App Color
-$colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-  wsdc_blue: #25aae1, // Warna biru
-  wsdc_red: #ec1c24, // Warna merah
-  wsdc_green: #2bb673, // Warna hijau
-  wsdc_purple: #d189bb, // Warna ungu
-  wsdc_brown: #c49a6c, // Warna cokelat
-  wsdc_darkestgrey: #5c5c5c, // Warna teks abu2 di -> Emergency Contacts; tanggal dan info di Schedule; info venues
-  wsdc_darkgrey: #d0d0d0, // Warna garis abu2 muda
-  wsdc_lightgrey: #909090, // Warna teks abu2 muda -> tulisan hari di Schedule; tulisan “5 km” di info venues
-  wsdc_lightestgrey: #949494 // Warna garis abu2 sedang (di Home Ipad)
-);
-
 /** Ionic CSS Variables **/
 :root {
+  /** WSDC Color **/
+  --ion-color-wsdc-blue: #25aae1;
+  --ion-color-wsdc-red: #ec1c24; 
+  --ion-color-wsdc-green: #2bb673; 
+  --ion-color-wsdc-purple: #d189bb;
+  --ion-color-wsdc-brown: #c49a6c; 
+  --ion-color-wsdc-darkestgrey: #5c5c5c; 
+  --ion-color-wsdc-darkgrey: #d0d0d0; 
+  --ion-color-wsdc-lightgrey: #909090;
+  --ion-color-wsdc-lightestgrey: #949494; 
+
   /** primary **/
   --ion-color-primary: #488aff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -92,6 +85,35 @@ $colors: (
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+}
+
+// Cusrom Color
+.ion-color-wsdc-blue {
+	--ion-color-blue: var(--ion-color-wsdc-blue);
+}
+.ion-color-wsdc-red {
+	--ion-color-red: var(--ion-color-wsdc-red);
+}
+.ion-color-wsdc-green {
+	--ion-color-green: var(--ion-color-wsdc-green);
+}
+.ion-color-wsdc-purple {
+	--ion-color-purple: var(--ion-color-wsdc-purple);
+}
+.ion-color-wsdc-brown {
+	--ion-color-brown: var(--ion-color-wsdc-brown);
+}
+.ion-color-wsdc-darkestgrey {
+	--ion-color-darkestgrey: var(--ion-color-wsdc-darkestgrey);
+}
+.ion-color-wsdc-darkgrey {
+	--ion-color-darkgrey: var(--ion-color-wsdc-darkgrey);
+}
+.ion-color-wsdc-lightgrey {
+	--ion-color-lightgrey: var(--ion-color-wsdc-lightgrey);
+}
+.ion-color-wsdc-lightestgrey {
+	--ion-color-lightestgrey: var(--ion-color-wsdc-lightestgrey);
 }
 
 // @media (prefers-color-scheme: dark) {

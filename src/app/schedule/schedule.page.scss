@@ -4,11 +4,11 @@ ion-content{
     flex-wrap: wrap;
     #schedulesSegments{
       overflow-x: scroll;
-      border-bottom: 1px solid grey;
+      border-bottom: 1px solid var(--ion-color-wsdc-darkgrey);
       background-color: white;
       overflow-x: scroll;
       ion-segment-button {
-        --background-checked: #2bb673;
+        --background-checked: var(--ion-color-wsdc-green);
         --color-checked: white;
         --indicator-color-checked: none;
         --border-radius: 50%;
@@ -59,11 +59,11 @@ ion-content{
               padding-top: 15px;
               font-weight: bold;
               font-size: 18px;
-              color: #2bb673;
-              border-left: 1px solid #2bb673;
+              color: var(--ion-color-wsdc-green);
+              border-left: 1px solid var(--ion-color-wsdc-green);
               height: 90%;
             }
-            #agendaCaption{
+            ion-label{
               margin-top: 7px;
               margin-bottom: 7px;
               h3 {
@@ -72,7 +72,6 @@ ion-content{
                 font-weight: bold;
               }
               p {
-                margin-top: -10px;
                 font-size: 16px;
                 font-weight: normal;
               }

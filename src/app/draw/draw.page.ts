@@ -30,7 +30,7 @@ export class DrawPage implements OnInit {
     }, 500);
   }
 
-  drawFrameLoad(){
+  onDrawIframeLoad(){
     let doc = this.drawIFrame.nativeElement.contentWindow.document;
     let elements = [
       doc.getElementById('header'),

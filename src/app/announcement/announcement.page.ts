@@ -22,19 +22,19 @@ export class AnnouncementPage implements OnInit {
 
   doRefresh(refresher) {
     console.log('Begin async operation');
-
-    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe((data: any) => {
+    this.http.get('https://wsdc.dnartworks.com/wsdc_data.json').subscribe(
+      (data: any) => {
       this.storage.clear();
       this.storage.set('wsdcDataStorage',data);
       this.announcements = data.announcements;
       console.log("Data updated!"); 
       if (refresher != 0)
           refresher.complete();
-    },
-    error => {
-      this.presentConnectionAlert();
-      refresher.complete();
-      console.log('error in HTTPRequest JSON');
+      },
+      (error) => {
+        this.presentConnectionAlert();
+        refresher.complete();
+        console.log('error in HTTPRequest JSON');
     });
     setTimeout(() => {
       console.log('Async operation has ended');
@@ -51,7 +51,6 @@ export class AnnouncementPage implements OnInit {
   }
 
   formatDatetime(sqlDatetime: string) {
-    // Note custom function is preferred over libraries, that contains many unnecessary codes.
     var date = new Date(sqlDatetime.substring(0, 10));
     var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -59,7 +58,6 @@ export class AnnouncementPage implements OnInit {
     var day = date.getDate();
     var monthIndex = date.getMonth();
     var time=sqlDatetime.substring(16,4)
-    
     return time.substring(7) + ' | ' + dayNames[dayOfWeek] + ', ' + day + ' ' + monthNames[monthIndex];
   }
 }
