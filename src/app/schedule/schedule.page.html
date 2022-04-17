@@ -12,8 +12,10 @@
     <div id="schedulesSegments" slot="fixed">
       <ion-segment #segmentContainer scrollable [(ngModel)]="selectedSegmentIdx"  (ionChange)="onSegmentChanged($event)"> 
         <ion-segment-button *ngFor="let schedule of schedules; let i = index;" [value]="i" [id]="i">
-          <div class="day">{{ getDayName(schedule.date)}}</div>
-          <div class="date">{{ getDate(schedule.date) }}</div>
+          <ion-label>
+            <div class="day">{{ getDayName(schedule.date)}}</div>
+            <div class="date">{{ getDate(schedule.date) }}</div>
+          </ion-label>
         </ion-segment-button>
       </ion-segment>
     </div>
@@ -26,10 +28,10 @@
                   {{agenda.start}} <br> 
                   {{agenda.end}}
               </ion-note>
-              <div id="agendaCaption">
+              <ion-label class="ion-text-wrap">
                 <h3>{{agenda.title}}</h3>
                 <p>{{agenda.subtitle}}</p>
-              </div>
+              </ion-label>
             </ion-item>
           </ion-list>
         </ion-slide>
