@@ -173,29 +173,32 @@ export class VenuesMapPage implements OnInit {
     });     
   } 
 
-  computeDistance(x1, y1, x2,  y2){
-      // Calculating distance
-      const R = 6371e3; // metres
-      const φ1 = x1 * Math.PI/180; // φ, λ in radians
-      const φ2 = x2 * Math.PI/180;
-      const Δφ = (x2-x1) * Math.PI/180;
-      const Δλ = (y2-y1) * Math.PI/180;
+  computeDistance(lat1, lat2, lon1, lon2){
+    // The math module contains a function
+    // named toRadians which converts from
+    // degrees to radians.
+    lon1 =  lon1 * Math.PI / 180;
+    lon2 = lon2 * Math.PI / 180;
+    lat1 = lat1 * Math.PI / 180;
+    lat2 = lat2 * Math.PI / 180;
+    // Haversine formula
+    let dlon = lon2 - lon1;
+    let dlat = lat2 - lat1;
+    let a = Math.pow(Math.sin(dlat / 2), 2)
+              + Math.cos(lat1) * Math.cos(lat2)
+              * Math.pow(Math.sin(dlon / 2),2);
+    let c = 2 * Math.asin(Math.sqrt(a));
+    // Radius of earth in kilometers. Use 3956
+    // for miles
+    let r = 6371;
+    let d = c * r;
 
-      const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ/2) * Math.sin(Δλ/2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-      const d = R * c; // in metres
-      const dist= Math.ceil(d);
-
-      if(dist < 1000){
-        this.userDistance = dist + " km";
-      }else if (dist < 100000){
-        this.userDistance = Math.ceil(d/1000) + " km";
-      }else{
-        this.userDistance = ">99km"
-      }
-      // console.log(Math.ceil(d/1000) + " km");
+    if(d < 1000){
+      this.userDistance = Math.floor(d) + " m";
+    }else if (d < 100000){
+      this.userDistance = Math.floor(d/1000) + " km";
+    }else{
+      this.userDistance = ">99 km"
+    }
   }
 }
