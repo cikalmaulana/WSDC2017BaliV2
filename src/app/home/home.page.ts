@@ -17,11 +17,11 @@ export class HomePage implements OnInit {
 
   constructor(private http: HttpClient,private storage: Storage,private router: Router,public toastController: ToastController) { }
 
-  ionViewDidEnter(){
+  ionViewDidEnter(){ //runs when the page has fully entered and is now the active page.
     SplashScreen.hide()
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { //called after Angular has initialized all data-bound properties of a directive
     this.storage.get('wsdcDataStorage').then((data) => {
       
       if(data == null){
@@ -83,7 +83,7 @@ export class HomePage implements OnInit {
     Browser.open({ url: newsUrl });
   }
 
-  // ionic 6 : user ionic angular router for change page
+  // ionic 6 : use ionic angular router for change page
   onAnnouncementClick() {
     this.router.navigate(['announcement']);
   }
