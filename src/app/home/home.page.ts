@@ -37,7 +37,17 @@ export class HomePage implements OnInit {
         this.wsdcData = data;
       }
       
-      
+      // Refresh data
+      setTimeout(() => {
+        this.http.get('http://wsdc.dnartworks.com/wsdc_data.json')
+        .subscribe((data: any) => {
+          this.storage.set('wsdcDataStorage', data);
+          this.wsdcData = data;
+        },
+        err => {
+          this.showToast('Failed to refresh information');
+        });
+      }, 1000);
     })
     
   }
