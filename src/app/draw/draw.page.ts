@@ -22,7 +22,7 @@ export class DrawPage implements OnInit {
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Please wait...',
-      backdropDismiss​: true // If true, the loading indicator will be dismissed when the backdrop is clicked.
+      backdropDismiss: true // If true, the loading indicator will be dismissed when the backdrop is clicked.
     });
     await loading.present();
     setTimeout(() => {
