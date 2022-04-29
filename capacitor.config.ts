@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'WSDC 2017 Bali V2',
+  appId: 'org.wsdc2017indonesia.app',
+  appName: 'WSDC 2017',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {
