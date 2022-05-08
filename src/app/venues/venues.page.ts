@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: './venues.page.html',
   styleUrls: ['./venues.page.scss'],
 })
-export class VenuesPage implements OnInit {
+export class VenuesPage{
   venuesData: Array<{ id: string, name: string, icon: string, geojson: any, colorIdx: number }>;
   valVenues: any;
   constructor(private router: Router,private storage: Storage) {
@@ -30,9 +30,6 @@ export class VenuesPage implements OnInit {
         }
       }
     })
-  }
-
-  ngOnInit() {
   }
 
   itemTapped(wsdcVenue) {
