@@ -9,22 +9,17 @@ import { Geolocation } from '@capacitor/geolocation';
   templateUrl: './venues-map.page.html',
   styleUrls: ['./venues-map.page.scss'],
 })
-export class VenuesMapPage implements OnInit {
+export class VenuesMapPage{
   venuesPage: any;
   venuesMapsDetail: any;
-  coordinates: any;
   userDistance: any;
   userCoordinatesLat: any;
   userCoordinatesLng: any;
   mapid: any;
   userDistanceTo: string[];
-  arrCoordinateLat: number[];
-  arrCoordinateLng: number[];
   itemCounter: any;
-  data: any;
-  items: Array<{id: string, name: string, lat: string, lang: string, description: string, distance: string, idcolor:number }>
+  items: Array<{id: string, idcolor:number }>
   pageTitleColors: Array<string> = ["#ec1c24", "#c49a6c", "#d189bb", "#4d113f"];
-  coloridx: number;
 
   constructor(private actovatedRoute: ActivatedRoute, private router: Router,private storage: Storage) {
 
@@ -32,21 +27,14 @@ export class VenuesMapPage implements OnInit {
     this.items = [];
     this.actovatedRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.data = this.router.getCurrentNavigation().extras.state.venuesData;
-        this.venuesPage = this.data;
+        this.venuesPage = this.router.getCurrentNavigation().extras.state.venuesData;
       }
       
-      for (let wsdcVenueFeatures of this.venuesPage.geojson.features) {
-        this.items.push({
-          name: wsdcVenueFeatures.properties.Name,
-          id: this.venuesPage.id,
-          idcolor: this.venuesPage.colorIdx,
-          lang: wsdcVenueFeatures.geometry.coordinates[0],
-          lat: wsdcVenueFeatures.geometry.coordinates[1],
-          description: wsdcVenueFeatures.properties.Description,
-          distance: '? km'
-        });
-      }
+      this.items.push({
+        id: this.venuesPage.id,
+        idcolor: this.venuesPage.colorIdx
+      });
+      
       document.getElementById("pagetitle").style.color = this.pageTitleColors[this.items[0].idcolor-1];
     });
 
@@ -64,9 +52,6 @@ export class VenuesMapPage implements OnInit {
     };
     
     printCurrentPosition();
-  }
-
-  ngOnInit() {
   }
 
   ionViewDidEnter() {
@@ -133,18 +118,13 @@ export class VenuesMapPage implements OnInit {
       }
   
       // Insert distance to each location
-      this.arrCoordinateLng = new Array(this.itemCounter);
-      this.arrCoordinateLat = new Array(this.itemCounter);
       this.userDistanceTo = new Array(this.itemCounter);
-      this.itemCounter = 0;
+      let counter = 0;
       for(let venue of this.venuesMapsDetail){
         for(let venuesMarker of venue.geojson.features){
           const koor = venuesMarker.geometry.coordinates;  
-          this.arrCoordinateLat[this.itemCounter]= koor[1];
-          this.arrCoordinateLng[this.itemCounter]= koor[0];
-          this.computeDistance(this.userCoordinatesLat,this.userCoordinatesLng,this.arrCoordinateLat[this.itemCounter],this.arrCoordinateLng[this.itemCounter])
-          this.userDistanceTo[this.itemCounter] = this.userDistance;
-          this.itemCounter+=1;
+          this.userDistanceTo[counter] = this.computeDistance(this.userCoordinatesLat,koor[1],this.userCoordinatesLng,koor[0]);
+          counter+=1;
         }
       }
     };
@@ -158,14 +138,14 @@ export class VenuesMapPage implements OnInit {
     this.router.navigate(['venues']);
   }
 
-  featTapped(coordinates){
-    this.coordinates = coordinates;
+  featTapped(venuesCoordinates){
+    const coordinates = venuesCoordinates;
     CapacitorGoogleMaps.moveCamera({
       mapId:this.mapid,
       cameraPosition:{
         target:{
-          latitude: this.coordinates[1],
-          longitude: this.coordinates[0],
+          latitude: coordinates[1],
+          longitude: coordinates[0],
         },
         zoom:15
       },
@@ -174,31 +154,29 @@ export class VenuesMapPage implements OnInit {
   } 
 
   computeDistance(lat1, lat2, lon1, lon2){
-    // The math module contains a function
-    // named toRadians which converts from
-    // degrees to radians.
-    lon1 =  lon1 * Math.PI / 180;
-    lon2 = lon2 * Math.PI / 180;
-    lat1 = lat1 * Math.PI / 180;
-    lat2 = lat2 * Math.PI / 180;
-    // Haversine formula
-    let dlon = lon2 - lon1;
-    let dlat = lat2 - lat1;
-    let a = Math.pow(Math.sin(dlat / 2), 2)
-              + Math.cos(lat1) * Math.cos(lat2)
-              * Math.pow(Math.sin(dlon / 2),2);
-    let c = 2 * Math.asin(Math.sqrt(a));
-    // Radius of earth in kilometers. Use 3956
-    // for miles
-    let r = 6371;
-    let d = c * r;
+    
+    const R = 6371e3; // metres
+    const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+    const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180;
+    const Δλ = (lon2-lon1) * Math.PI/180;
+    
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    
+    const d = R * c; // in metres
 
+    
     if(d < 1000){
-      this.userDistance = Math.floor(d) + " m";
+      return Math.floor(d) + " m";
     }else if (d < 100000){
-      this.userDistance = Math.floor(d/1000) + " km";
+      return Math.floor(d/1000) + " km";
     }else{
-      this.userDistance = ">99 km"
+      return ">99 km"
     }
+
+    // Credits to Movable Type Ltd on https://www.movable-type.co.uk/scripts/latlong.html
   }
 }
