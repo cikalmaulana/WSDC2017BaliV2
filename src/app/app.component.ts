@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular'
+import { SplashScreen } from '@capacitor/splash-screen';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Announcements', url: '/announcement', icon: 'megaphone' },
@@ -15,6 +17,7 @@ export class AppComponent {
     { title: 'Result', url: '/result', icon: 'newspaper' },
     { title: 'Info', url: '/info', icon: 'alert' },
   ];
+  platform: any;
 
   constructor(private storage: Storage) { 
     
@@ -22,6 +25,7 @@ export class AppComponent {
 
   async ngOnInit(){
     await this.storage.create();
+    SplashScreen.hide();
   }
 
   
