@@ -26,12 +26,12 @@ export class HomePage implements OnInit {
       
       if(data == null){
         //Default from asset
-        this.http.get('../assets/json/wsdc-data.json').subscribe((data: any) => {
+        this.http.get('../assets/json/wsdc_data.json').subscribe((data: any) => {
           this.wsdcData = data;
           this.storage.set('wsdcDataStorage',data);       
         },
         error => {
-          this.showToast('Failed to refresh information');
+          this.showToast('Failed to refresh information from local storage');
         });
       }else{    
         this.wsdcData = data;
@@ -44,7 +44,7 @@ export class HomePage implements OnInit {
           this.storage.set('wsdcDataStorage', data);
           this.wsdcData = data;
         },
-        err => {
+        error => {
           this.showToast('Failed to refresh information');
         });
       }, 1000);
