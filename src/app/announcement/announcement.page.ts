@@ -29,17 +29,17 @@ export class AnnouncementPage implements OnInit {
       this.announcements = data.announcements;
       console.log("Data updated!"); 
       if (refresher != 0)
-          refresher.complete();
+          refresher.target.complete();
       },
       (error) => {
         this.presentConnectionAlert();
-        refresher.complete();
+        refresher.target.complete();
         console.log('error in HTTPRequest JSON');
     });
     setTimeout(() => {
       console.log('Async operation has ended');
       refresher.target.complete();
-    }, 2000);
+    }, 30000);
   }
 
   async presentConnectionAlert() {
