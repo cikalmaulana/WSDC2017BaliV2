@@ -7,10 +7,14 @@ import { Storage } from '@ionic/storage';
   templateUrl: './venues.page.html',
   styleUrls: ['./venues.page.scss'],
 })
-export class VenuesPage{
+export class VenuesPage implements OnInit{
   venuesData: Array<{ id: string, name: string, icon: string, geojson: any, colorIdx: number }>;
   valVenues: any;
   constructor(private router: Router,private storage: Storage) {
+    
+  }
+
+  ngOnInit(){
     this.storage.get('wsdcDataStorage').then((val) => {
       this.valVenues = val.venues;
       this.venuesData = [];

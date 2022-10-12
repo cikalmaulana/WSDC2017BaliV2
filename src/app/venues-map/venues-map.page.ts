@@ -9,7 +9,7 @@ import { Geolocation } from '@capacitor/geolocation';
   templateUrl: './venues-map.page.html',
   styleUrls: ['./venues-map.page.scss'],
 })
-export class VenuesMapPage{
+export class VenuesMapPage implements OnInit{
   venuesPage: any;
   venuesMapsDetail: any;
   userCoordinatesLat: any;
@@ -37,12 +37,6 @@ export class VenuesMapPage{
       document.getElementById("pagetitle").style.color = this.pageTitleColors[this.items[0].idcolor-1];
     });
 
-    // Select data from storage
-    this.storage.get('wsdcDataStorage').then((data) => {
-      this.venuesMapsDetail = data.venues;
-      this.venuesMapsDetail = this.venuesMapsDetail.filter(d=> d.id==this.items[0].id);
-    })
-
     //save user lat & lng location
     const printCurrentPosition = async () => {
       const coordinates = await Geolocation.getCurrentPosition();
@@ -52,6 +46,14 @@ export class VenuesMapPage{
     
     printCurrentPosition();
     Geolocation.requestPermissions();
+  }
+
+  ngOnInit(){
+    // Select data from storage
+    this.storage.get('wsdcDataStorage').then((data) => {
+      this.venuesMapsDetail = data.venues;
+      this.venuesMapsDetail = this.venuesMapsDetail.filter(d=> d.id==this.items[0].id);
+    })
   }
 
   ionViewDidEnter() {

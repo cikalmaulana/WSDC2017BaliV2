@@ -1,4 +1,4 @@
-import { Component, ElementRef} from '@angular/core';
+import { Component, ElementRef, OnInit} from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: './schedule.page.html',
   styleUrls: ['./schedule.page.scss'],
 })
-export class SchedulePage{
+export class SchedulePage implements OnInit{
   @ViewChild('scheduleSlider', { static: false }) slider: IonSlides;
   @ViewChild('segmentContainer', { static: false }) segmentContainer: ElementRef;
   schedules: any;
@@ -20,7 +20,9 @@ export class SchedulePage{
   currentIndex:any;
 
   constructor(private storage: Storage) {
-    
+  }
+
+  ngOnInit(){
     this.storage.get('wsdcDataStorage').then((val) => {
       this.schedules = val.schedules;
       this.selectedSegmentIdx = 0;
