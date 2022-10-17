@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { CapacitorGoogleMaps } from "@capacitor-community/google-maps";
 import { Geolocation } from '@capacitor/geolocation';
 

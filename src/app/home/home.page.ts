@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Browser } from '@capacitor/browser';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { Router } from '@angular/router';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { ToastController } from '@ionic/angular';

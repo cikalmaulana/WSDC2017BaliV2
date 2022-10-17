@@ -7,11 +7,11 @@ const config: CapacitorConfig = {
   bundledWebRuntime: false,
   plugins: {
     SplashScreen: {
-      "launchAutoHide": false,
-      "androidScaleType": "CENTER_CROP",
-      "splashFullScreen": true,
-      "splashImmersive": false,
-      "backgroundColor": "#ffffff" // YOUR SPLASH SCREEN MAIN COLOR
+      launchAutoHide: false,
+      androidScaleType: "CENTER_CROP",
+      splashFullScreen: true,
+      splashImmersive: false,
+      backgroundColor: "#ffffff" // YOUR SPLASH SCREEN MAIN COLOR
     },
   },
 };
